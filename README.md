@@ -1,1 +1,0 @@
-# ethanbidna.github.io

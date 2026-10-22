@@ -63,7 +63,8 @@ h1 { margin: 0 0 18px; font-weight: 800; font-size: clamp(56px, 10.5vw, 112px); 
 
 
 .statement { padding-block: 72px 40px; }
-.statement p { margin: 0; max-width: 28em; font-size: clamp(24px, 3.2vw, 34px); line-height: 1.3; letter-spacing: -.015em; font-weight: 500; }
+.statement p { margin: 0 0 1em; max-width: 33em; font-size: clamp(20px, 2.3vw, 26px); line-height: 1.45; letter-spacing: -.01em; font-weight: 500; }
+.statement p:last-child { margin-bottom: 0; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 /* inner pages */

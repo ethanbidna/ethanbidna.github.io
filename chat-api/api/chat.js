@@ -29,7 +29,10 @@ function cors(req, res) {
   res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
   res.setHeader("Cache-Control", "no-store");
   const origin = req.headers.origin;
-  if (origin && ORIGINS.includes(origin)) {
+  // The site and the chat share one address, so the page's own origin is always allowed.
+  let sameSite = false;
+  try { sameSite = !!origin && !!req.headers.host && new URL(origin).host === req.headers.host; } catch { /* not a URL */ }
+  if (origin && (sameSite || ORIGINS.includes(origin))) {
     res.setHeader("Access-Control-Allow-Origin", origin);
     res.setHeader("Vary", "Origin");
     res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");

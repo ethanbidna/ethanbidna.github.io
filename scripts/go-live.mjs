@@ -12,11 +12,5 @@ edit("llms.txt", (s) => s.includes("/ask/") ? s : s.replace("- [Contact]", "- [A
 const mcpUrl = endpoint.replace(/\/api\/chat$/, "/api/mcp");
 edit("agents/index.html", (s) => s.replaceAll("https://YOUR-DEPLOYMENT.vercel.app/api/mcp", mcpUrl));
 edit("llms.txt", (s) => s.includes("MCP server") ? s : s.trimEnd() + `\n- MCP server (read-only tools about Ethan): ${mcpUrl}\n`);
-if (fs.existsSync("evals/results.json")) {
-  edit("ask/index.html", (s) => s.replace('id="ask-evals" href="/evals/" hidden', 'id="ask-evals" href="/evals/"'));
-  edit("evals/index.html", (s) => s.replace('content="noindex, follow"', 'content="index, follow, max-image-preview:large"'));
-  edit("sitemap.xml", (s) => s.includes("/evals/") ? s : s.replace("  <url><loc>https://www.ethanbidna.com/agents/</loc>", "  <url><loc>https://www.ethanbidna.com/evals/</loc><lastmod>2026-10-22</lastmod><priority>0.6</priority></url>\n  <url><loc>https://www.ethanbidna.com/agents/</loc>"));
-  console.log("Evals page is live.");
-} else console.log("Evals page stays hidden until you run: node scripts/publish-evals.mjs (after a live eval run).");
 console.log("Ask me anything enabled with", endpoint);
 console.log("MCP server listed at", mcpUrl);

@@ -167,3 +167,14 @@ assert.equal(cli.status, 2); assert.match(cli.stderr, /OPENROUTER_API_KEY or ANT
 }
 
 console.log("all eval tests passed");
+
+// The public /evals/ page is generated from the suite and must stay in sync, with no results or attribution.
+{
+  const { execFileSync } = await import("node:child_process");
+  const fs = await import("node:fs");
+  const before = fs.readFileSync("../evals/index.html", "utf8");
+  execFileSync("node", ["../scripts/build-evals-page.mjs"], { cwd: process.cwd() });
+  const after = fs.readFileSync("../evals/index.html", "utf8");
+  assert.equal(after, before, "evals/index.html is stale: run node scripts/build-evals-page.mjs");
+  assert.doesNotMatch(after, /\b(Hamel|Shreya|Arize|Lenny)|\b(passed|failed)\b/i);
+}

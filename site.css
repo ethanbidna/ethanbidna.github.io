@@ -174,3 +174,9 @@ footer a { color: inherit; }
   .facts { grid-template-columns: minmax(0, 1fr); gap: 0; } .facts dd { margin-bottom: 12px; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .studio::after { background: radial-gradient(560px circle at 30% 26%, rgba(255, 255, 255, .72), rgba(255, 255, 255, 0) 64%); } .cover-text > *, .cover-photo { animation: none; } .btn { transition: none; } }
+.evals details { margin: 10px 0; }
+.evals summary { cursor: pointer; padding: 10px 0; min-height: 44px; }
+.evals .group { border-top: 1px solid var(--line, rgba(0,0,0,.14)); }
+.evals .count { color: var(--muted, #666); font-size: .9em; margin-left: 6px; }
+.evals .then { color: var(--muted, #666); font-size: .85em; padding: 0 4px; }
+.evals li { margin: 8px 0; }

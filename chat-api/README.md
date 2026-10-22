@@ -34,6 +34,6 @@ A read-only [Model Context Protocol](https://modelcontextprotocol.io) server on 
 ## Evals (`evals/`)
 A test suite for the assistant, built around failure modes, binary checks, and judges that are validated against hand-labeled examples before they are trusted. See `evals/README.md` for the method and its honest limits.
 - `npm test` runs everything that is free: the endpoint, the MCP server, the checks, the metrics, and the whole harness on recorded answers with deliberate failures.
-- `OPENROUTER_API_KEY=... npm run evals:live -- --yes` runs the real thing (about 170 calls, roughly $1 to $3).
-- `node scripts/publish-evals.mjs` (from the repo root) copies a trimmed result to the public `/evals/` page. It refuses anything that is not a live run. `scripts/go-live.mjs` shows the page and links to it once results exist.
+- `OPENROUTER_API_KEY=... npm run evals:live -- --yes` runs the real thing (about 200 calls, roughly $1 to $3).
+- `node scripts/build-evals-page.mjs` (from the repo root) regenerates the public `/evals/` page from the suite itself. It lists only the checks and test conversations, no results.
 - `.github/workflows/evals.yml` runs the free tests on every change. A live run is a manual job that needs an `ANTHROPIC_API_KEY` repository secret.

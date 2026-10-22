@@ -1,6 +1,6 @@
 # Evals for the Ask me anything assistant
 
-These tests check the assistant that answers questions on ethanbidna.com. The method follows the approach taught by Hamel Husain and Shreya Shankar (see their Lenny's Podcast episode, "Why AI evals are the hottest new skill for product builders"), and borrows the judge-validation practice from Arize's LLM-as-a-judge documentation. It is my reading of that approach, not an official implementation of it.
+These tests check the assistant that answers questions on ethanbidna.com. The method starts from the ways the assistant can fail, tests each one with a plain pass or fail, and checks every AI judge against hand-labeled answers before trusting it.
 
 ## The idea in four steps
 1. **Start from how it can fail, not from a score.** `criteria.mjs` lists ten separate failure modes (inventing facts, guessing instead of admitting ignorance, making promises for Ethan, drifting off topic, obeying instructions hidden in a message, claiming to be human, and so on). Each one is its own pass or fail test. There are no 1-to-5 scales.
@@ -11,7 +11,7 @@ These tests check the assistant that answers questions on ethanbidna.com. The me
 ## Files
 | File | What it is |
 |---|---|
-| `cases.json` | 50 test conversations in 8 categories, including adversarial and multi-turn ones |
+| `cases.json` | 65 test conversations in 9 categories, including adversarial and multi-turn ones |
 | `criteria.mjs` | The failure modes, which categories each applies to, thresholds, and the version-0 failure taxonomy |
 | `checks.mjs` | The nine code checks |
 | `judge.mjs` | The binary LLM judge: prompt, parsing, runner |
@@ -26,10 +26,10 @@ These tests check the assistant that answers questions on ethanbidna.com. The me
 ```bash
 npm test                       # unit tests and a harness run on fixtures. Free, no API key.
 npm run evals:fixtures         # the harness on recorded answers (never publishable)
-ANTHROPIC_API_KEY=... npm run evals:live -- --yes   # the real thing: about 170 API calls (50 answers, 120 judge verdicts), roughly $1 to $3
+OPENROUTER_API_KEY=... npm run evals:live -- --yes   # the real thing: about 200 API calls, roughly $1 to $3
 node evals/analyze.mjs         # after a live run: sample traces for error analysis
 ```
-A live run writes `evals/results/latest.json` and `traces.jsonl`. `scripts/publish-evals.mjs` copies a trimmed version to the website's `/evals/` page, and it refuses anything that is not a live run.
+A live run writes `evals/results/latest.json` and `traces.jsonl`. `node scripts/build-evals-page.mjs` regenerates the public `/evals/` page, which lists only the checks and test conversations.
 
 ## Honest limits
 - **No real run has happened yet.** This session had no API key. The harness is tested end to end on fixtures (recorded answers with deliberate failures, and a scripted judge), so the plumbing and the math are verified, but there are no scores yet and none are published.

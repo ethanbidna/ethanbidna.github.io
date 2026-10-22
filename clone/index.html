@@ -4,19 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ethan Bidna's AI Clone | Ask about his work</title>
-<meta name="description" content="Talk to Ethan Bidna's AI clone. Ask about his work building AI and data products.">
+<meta name="description" content="Talk to Ethan Bidna's AI clone. Ask what he has built, how he approaches AI products, and what working together would look like.">
 <link rel="canonical" href="https://www.ethanbidna.com/clone/">
+<meta name="theme-color" content="#adacb0">
 <meta name="author" content="Ethan S. Bidna">
 <meta name="robots" content="noindex, follow">
-<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#101214" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="/favicon.ico">
 <link rel="alternate" type="text/plain" href="/llms.txt" title="Summary for AI agents">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Ethan Bidna">
 <meta property="og:title" content="Ethan Bidna's AI Clone | Ask about his work">
-<meta property="og:description" content="Talk to Ethan Bidna's AI clone. Ask about his work building AI and data products.">
+<meta property="og:description" content="Talk to Ethan Bidna's AI clone. Ask what he has built, how he approaches AI products, and what working together would look like.">
 <meta property="og:url" content="https://www.ethanbidna.com/clone/">
 <meta property="og:image" content="https://www.ethanbidna.com/og.png">
 <meta property="og:image:width" content="1200">
@@ -24,32 +23,30 @@
 <meta property="og:image:alt" content="Ethan Bidna. AI and data products. Boston, MA.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Ethan Bidna's AI Clone | Ask about his work">
-<meta name="twitter:description" content="Talk to Ethan Bidna's AI clone. Ask about his work building AI and data products.">
+<meta name="twitter:description" content="Talk to Ethan Bidna's AI clone. Ask what he has built, how he approaches AI products, and what working together would look like.">
 <meta name="twitter:image" content="https://www.ethanbidna.com/og.png">
 
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap">
 <link rel="stylesheet" href="/site.css">
 </head>
 <body>
 <div class="wrap">
-  <header class="top"><a class="name" href="/">Ethan Bidna</a><nav aria-label="Primary"><a href="/clone/" aria-current="page" id="nav-clone" hidden>AI clone</a><a href="/contact/">Contact</a><a href="/agents/">For agents</a></nav></header>
-
+  <header class="bar"><a class="wordmark" href="/">Ethan Bidna</a><nav aria-label="Primary"><a href="/clone/" aria-current="page" id="nav-clone" hidden>AI clone</a><a href="/contact/">Work with me</a><a href="/agents/">For agents</a></nav></header>
   <main class="page" id="clone" data-endpoint="">
-    <p class="eyebrow">AI clone</p>
-    <h1>Talk to my AI clone.</h1>
-    <p class="lead">It knows my work and answers the way I would. Ask it anything.</p>
+    <h1>Ask my AI clone.</h1>
+    <p class="lead">It knows my work and answers the way I would.</p>
 
     <div class="offline" id="offline">
-      <p style="margin:0 0 12px">My AI clone is not online yet. In the meantime, let's talk directly.</p>
-      <a class="btn primary" href="/contact/">Let's work together</a>
+      <p>My AI clone is not online yet. In the meantime, let's talk directly.</p>
+      <a class="btn primary" href="/contact/">Let's work together <svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
 
     <div id="live" hidden>
       <div class="chat">
-        <div class="chat-head"><div class="avatar"><img src="/img/ethan.jpg" alt="" width="72" height="72"></div><div>Ethan's AI clone<small>Powered by Claude</small></div></div>
+        <div class="chat-head"><div class="mini"><img src="/img/ethan.jpg" alt="" width="76" height="76"></div><div>Ethan's AI clone<small>Powered by Claude</small></div></div>
         <div class="log" id="log" aria-live="polite"></div>
         <div class="suggest" id="suggest"></div>
         <form class="form" id="form" autocomplete="off">
@@ -57,11 +54,11 @@
           <button class="btn primary" id="send" type="submit">Send</button>
         </form>
       </div>
-      <p class="fine">This is an AI clone of me, not me. It answers from a short brief about my work and can be wrong. It cannot make commitments on my behalf. Conversations are not saved on this site.</p>
+      <p class="fine">This is an AI clone of me, not me. It answers from a short brief about my work and can be wrong, and it cannot make commitments on my behalf. Conversations are not saved on this site. Built with Claude Code.</p>
     </div>
   </main>
 </div>
-<footer><span>&copy; 2026 Ethan S. Bidna</span><a href="/agents/">Are you an AI agent? Start here.</a></footer>
+<footer><span>&copy; 2026 Ethan S. Bidna. Designed and built with Claude Code.</span><a href="/agents/">Are you an AI agent? Start here.</a></footer>
 <script>
 (function () {
   var root = document.getElementById("clone"), endpoint = root.getAttribute("data-endpoint");
@@ -71,6 +68,7 @@
   var EMAIL = "ethansbidna@gmail.com", MAX = 3;
   var log = document.getElementById("log"), form = document.getElementById("form"), input = document.getElementById("q");
   var send = document.getElementById("send"), suggest = document.getElementById("suggest");
+  var ARROW = '<svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   var msgs = [], busy = false, done = false;
 
   function add(cls, text) { var d = document.createElement("div"); d.className = "msg " + cls; d.textContent = text; log.appendChild(d); log.scrollTop = log.scrollHeight; return d; }
@@ -82,7 +80,7 @@
   function closing(text) {
     done = true; input.disabled = send.disabled = true; suggest.hidden = true; input.placeholder = "Continue with the real me";
     var d = add("note", text), row = document.createElement("div"); row.className = "actions";
-    var a = document.createElement("a"); a.href = "/contact/"; a.className = "btn primary"; a.textContent = "Let's work together";
+    var a = document.createElement("a"); a.href = "/contact/"; a.className = "btn primary"; a.innerHTML = "Let's work together " + ARROW;
     var b = document.createElement("a"); b.href = mailto(); b.className = "btn"; b.textContent = "Email me this conversation";
     row.appendChild(a); row.appendChild(b); d.appendChild(row); log.scrollTop = log.scrollHeight;
   }
@@ -100,13 +98,15 @@
     } catch (e) {
       wait.remove(); msgs.pop();
       closing("I have to step away for a moment. The real me is easy to reach.");
-    } finally { busy = false; if (!done) { send.disabled = false; input.focus(); } }
+    } finally { busy = false; if (!done) { send.disabled = false; input.focus({ preventScroll: true }); } }
   }
   form.addEventListener("submit", function (e) { e.preventDefault(); ask(input.value); });
-  ["What do you do?", "What is your background?", "How could we work together?"].forEach(function (s) {
+  ["What has Ethan built?", "How does he approach AI products?", "What would working together look like?"].forEach(function (s) {
     var b = document.createElement("button"); b.type = "button"; b.textContent = s; b.addEventListener("click", function () { ask(s); }); suggest.appendChild(b);
   });
-  add("bot", "Hi, I am Ethan's AI clone. Ask me about his work.");
+  add("bot", "Hi, I'm Ethan's AI clone. Ask me about his work: what he has built, how he thinks, or what working together would look like.");
+  var q = new URLSearchParams(location.search).get("q");
+  if (q) { history.replaceState(null, "", location.pathname); ask(q.slice(0, 300)); }
 })();
 </script>
 </body>

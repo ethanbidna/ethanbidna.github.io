@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Work with Ethan Bidna | Let's work together</title>
+<meta name="description" content="Hiring for a product, AI or data role, looking for a product partner, or have an idea? Get in touch with Ethan Bidna in Boston, MA.">
+<link rel="canonical" href="https://www.ethanbidna.com/contact/">
+<meta name="author" content="Ethan S. Bidna">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#101214" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/favicon.ico">
+<link rel="alternate" type="text/plain" href="/llms.txt" title="Summary for AI agents">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ethan Bidna">
+<meta property="og:title" content="Work with Ethan Bidna | Let's work together">
+<meta property="og:description" content="Hiring for a product, AI or data role, looking for a product partner, or have an idea? Get in touch with Ethan Bidna in Boston, MA.">
+<meta property="og:url" content="https://www.ethanbidna.com/contact/">
+<meta property="og:image" content="https://www.ethanbidna.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ethan Bidna. AI and data products. Boston, MA.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Work with Ethan Bidna | Let's work together">
+<meta name="twitter:description" content="Hiring for a product, AI or data role, looking for a product partner, or have an idea? Get in touch with Ethan Bidna in Boston, MA.">
+<meta name="twitter:image" content="https://www.ethanbidna.com/og.png">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/site.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top"><a class="name" href="/">Ethan Bidna</a><nav aria-label="Primary"><a href="/clone/" id="nav-clone" hidden>AI clone</a><a href="/contact/" aria-current="page">Contact</a><a href="/agents/">For agents</a></nav></header>
+
+  <main class="page">
+    <div class="avatar"><img src="/img/ethan.jpg" alt="Ethan Bidna" width="168" height="168" onerror="this.parentNode.hidden=true"></div>
+    <p class="eyebrow">Contact</p>
+    <h1>Let's work together.</h1>
+    <p class="lead">If you are building with AI or data and want a product mind on it, I would like to hear about it. Pick whatever fits and write to me.</p>
+    <ul class="reasons">
+      <li><a href="mailto:ethansbidna@gmail.com?subject=Role%20to%20discuss"><b>Hiring</b><span>A product, AI or data role you would like me to look at.</span><i>Write to me &rarr;</i></a></li>
+      <li><a href="mailto:ethansbidna@gmail.com?subject=Working%20together"><b>Partnering</b><span>A startup or project that needs a product partner.</span><i>Write to me &rarr;</i></a></li>
+      <li><a href="mailto:ethansbidna@gmail.com?subject=An%20idea"><b>An idea</b><span>Something half-formed that you want a second opinion on.</span><i>Write to me &rarr;</i></a></li>
+    </ul>
+    <p class="email"><a href="mailto:ethansbidna@gmail.com" id="email">ethansbidna@gmail.com</a></p>
+    <div class="elsewhere">
+      <button class="btn" id="copy" type="button">Copy email</button>
+      <a class="btn" href="https://www.linkedin.com/in/ethanbidna/" rel="me">LinkedIn</a>
+      <a class="btn" id="to-clone" href="/clone/" hidden>Talk to my AI clone first</a>
+      <span class="copied" id="copied" role="status"></span>
+    </div>
+  </main>
+</div>
+<footer><span>&copy; 2026 Ethan S. Bidna</span><a href="/agents/">Are you an AI agent? Start here.</a></footer>
+<script>
+(function () {
+  var copied = document.getElementById("copied");
+  document.getElementById("copy").addEventListener("click", function () {
+    var t = document.getElementById("email").textContent;
+    function ok() { copied.textContent = "Copied"; setTimeout(function () { copied.textContent = ""; }, 1800); }
+    function fallback() { var r = document.createRange(); r.selectNodeContents(document.getElementById("email")); var s = getSelection(); s.removeAllRanges(); s.addRange(r); copied.textContent = "Selected"; }
+    if (navigator.clipboard) navigator.clipboard.writeText(t).then(ok, fallback); else fallback();
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ethan Bidna's AI Clone | Ask about his work</title>
+<meta name="description" content="Talk to Ethan Bidna's AI clone. Ask about his work building AI and data products.">
+<link rel="canonical" href="https://www.ethanbidna.com/clone/">
+<meta name="author" content="Ethan S. Bidna">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#101214" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/favicon.ico">
+<link rel="alternate" type="text/plain" href="/llms.txt" title="Summary for AI agents">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ethan Bidna">
+<meta property="og:title" content="Ethan Bidna's AI Clone | Ask about his work">
+<meta property="og:description" content="Talk to Ethan Bidna's AI clone. Ask about his work building AI and data products.">
+<meta property="og:url" content="https://www.ethanbidna.com/clone/">
+<meta property="og:image" content="https://www.ethanbidna.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ethan Bidna. AI and data products. Boston, MA.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ethan Bidna's AI Clone | Ask about his work">
+<meta name="twitter:description" content="Talk to Ethan Bidna's AI clone. Ask about his work building AI and data products.">
+<meta name="twitter:image" content="https://www.ethanbidna.com/og.png">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/site.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top"><a class="name" href="/">Ethan Bidna</a><nav aria-label="Primary"><a href="/clone/" aria-current="page" id="nav-clone" hidden>AI clone</a><a href="/contact/">Contact</a><a href="/agents/">For agents</a></nav></header>
+
+  <main class="page" id="clone" data-endpoint="">
+    <p class="eyebrow">AI clone</p>
+    <h1>Talk to my AI clone.</h1>
+    <p class="lead">It knows my work and answers the way I would. Ask it anything.</p>
+
+    <div class="offline" id="offline">
+      <p style="margin:0 0 12px">My AI clone is not online yet. In the meantime, let's talk directly.</p>
+      <a class="btn primary" href="/contact/">Let's work together</a>
+    </div>
+
+    <div id="live" hidden>
+      <div class="chat">
+        <div class="chat-head"><div class="avatar"><img src="/img/ethan.jpg" alt="" width="72" height="72"></div><div>Ethan's AI clone<small>Powered by Claude</small></div></div>
+        <div class="log" id="log" aria-live="polite"></div>
+        <div class="suggest" id="suggest"></div>
+        <form class="form" id="form" autocomplete="off">
+          <input id="q" type="text" maxlength="300" placeholder="Ask my clone a question" aria-label="Your question">
+          <button class="btn primary" id="send" type="submit">Send</button>
+        </form>
+      </div>
+      <p class="fine">This is an AI clone of me, not me. It answers from a short brief about my work and can be wrong. It cannot make commitments on my behalf. Conversations are not saved on this site.</p>
+    </div>
+  </main>
+</div>
+<footer><span>&copy; 2026 Ethan S. Bidna</span><a href="/agents/">Are you an AI agent? Start here.</a></footer>
+<script>
+(function () {
+  var root = document.getElementById("clone"), endpoint = root.getAttribute("data-endpoint");
+  if (!endpoint) return;
+  document.getElementById("offline").hidden = true; document.getElementById("live").hidden = false;
+
+  var EMAIL = "ethansbidna@gmail.com", MAX = 3;
+  var log = document.getElementById("log"), form = document.getElementById("form"), input = document.getElementById("q");
+  var send = document.getElementById("send"), suggest = document.getElementById("suggest");
+  var msgs = [], busy = false, done = false;
+
+  function add(cls, text) { var d = document.createElement("div"); d.className = "msg " + cls; d.textContent = text; log.appendChild(d); log.scrollTop = log.scrollHeight; return d; }
+  function mailto() {
+    var t = msgs.map(function (m) { return (m.role === "user" ? "Me: " : "Your AI clone: ") + m.content; }).join("\n\n");
+    var body = "Hi Ethan,\n\nI was talking with your AI clone and would like to continue with you.\n\n" + t.slice(0, 1400);
+    return "mailto:" + EMAIL + "?subject=" + encodeURIComponent("Continuing from your AI clone") + "&body=" + encodeURIComponent(body);
+  }
+  function closing(text) {
+    done = true; input.disabled = send.disabled = true; suggest.hidden = true; input.placeholder = "Continue with the real me";
+    var d = add("note", text), row = document.createElement("div"); row.className = "actions";
+    var a = document.createElement("a"); a.href = "/contact/"; a.className = "btn primary"; a.textContent = "Let's work together";
+    var b = document.createElement("a"); b.href = mailto(); b.className = "btn"; b.textContent = "Email me this conversation";
+    row.appendChild(a); row.appendChild(b); d.appendChild(row); log.scrollTop = log.scrollHeight;
+  }
+  async function ask(text) {
+    text = text.trim(); if (!text || busy || done) return;
+    busy = true; send.disabled = true; suggest.hidden = true;
+    add("you", text); msgs.push({ role: "user", content: text }); input.value = "";
+    var wait = add("bot", "\u2026");
+    try {
+      var res = await fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ messages: msgs }) });
+      if (!res.ok) throw new Error(String(res.status));
+      var data = await res.json();
+      wait.textContent = data.reply; msgs.push({ role: "assistant", content: data.reply });
+      if (msgs.filter(function (m) { return m.role === "user"; }).length >= MAX) closing("Want to keep going? The real me is a message away.");
+    } catch (e) {
+      wait.remove(); msgs.pop();
+      closing("I have to step away for a moment. The real me is easy to reach.");
+    } finally { busy = false; if (!done) { send.disabled = false; input.focus(); } }
+  }
+  form.addEventListener("submit", function (e) { e.preventDefault(); ask(input.value); });
+  ["What do you do?", "What is your background?", "How could we work together?"].forEach(function (s) {
+    var b = document.createElement("button"); b.type = "button"; b.textContent = s; b.addEventListener("click", function () { ask(s); }); suggest.appendChild(b);
+  });
+  add("bot", "Hi, I am Ethan's AI clone. Ask me about his work.");
+})();
+</script>
+</body>
+</html>

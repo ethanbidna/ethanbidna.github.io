@@ -31,7 +31,8 @@ let r = await call({ messages: [q("What do you do?")] });
 assert.equal(r.code, 200); assert.equal(r.body.remaining, 2); assert.match(r.body.reply, /Boston/);
 assert.equal(last.model, "claude-haiku-5-5"); assert.ok(last.max_tokens <= 800); assert.match(last.system, /Ethan S\. Bidna/);
 
-r = await call({ messages: [q("a"), a("b"), q("c"), a("d"), q("e")] }); assert.equal(r.code, 200); assert.equal(r.body.remaining, 0);
+assert.doesNotMatch(last.system, /last question/);
+r = await call({ messages: [q("a"), a("b"), q("c"), a("d"), q("e")] }); assert.equal(r.code, 200); assert.equal(r.body.remaining, 0); assert.match(last.system, /last question/, "closing instruction on third question");
 r = await call({ messages: [q("a"), a("b"), q("c"), a("d"), q("e"), a("f"), q("g")] }); assert.equal(r.code, 400, "fourth question rejected");
 r = await call({ messages: [q("x".repeat(301))] }); assert.equal(r.code, 400, "too long");
 r = await call({ messages: [a("hi")] }); assert.equal(r.code, 400, "must start with user");

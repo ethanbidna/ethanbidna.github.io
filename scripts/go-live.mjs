@@ -1,0 +1,12 @@
+// Turns the AI clone on. Usage: node scripts/go-live.mjs https://YOUR-DEPLOYMENT/api/chat
+// Run it from the repo root after the chat-api function is deployed.
+import fs from "node:fs";
+const endpoint = process.argv[2];
+if (!/^https:\/\/.+\/api\/chat$/.test(endpoint || "")) { console.error("Give the full https URL ending in /api/chat"); process.exit(1); }
+const edit = (file, fn) => { const before = fs.readFileSync(file, "utf8"), after = fn(before); if (before === after) console.warn("no change:", file); fs.writeFileSync(file, after); };
+const unhide = (s) => s.replace(/(id="(?:nav-clone|path-clone|to-clone)"[^>]*?) hidden/g, "$1");
+for (const f of ["index.html", "contact/index.html", "clone/index.html", "agents/index.html"]) if (fs.existsSync(f)) edit(f, unhide);
+edit("clone/index.html", (s) => s.replace('data-endpoint=""', `data-endpoint="${endpoint}"`).replace('content="noindex, follow"', 'content="index, follow, max-image-preview:large"'));
+edit("sitemap.xml", (s) => s.includes("/clone/") ? s : s.replace("  <url><loc>https://www.ethanbidna.com/agents/</loc>", "  <url><loc>https://www.ethanbidna.com/clone/</loc><lastmod>2026-10-22</lastmod><priority>0.7</priority></url>\n  <url><loc>https://www.ethanbidna.com/agents/</loc>"));
+edit("llms.txt", (s) => s.includes("/clone/") ? s : s.replace("- [Contact]", "- [AI clone](https://www.ethanbidna.com/clone/): talk to an AI clone of Ethan\n- [Contact]"));
+console.log("AI clone enabled with", endpoint);

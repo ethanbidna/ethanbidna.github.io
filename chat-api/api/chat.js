@@ -1,5 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
-import { SYSTEM } from "../lib/prompt.js";
+import { SYSTEM, FINAL_TURN } from "../lib/prompt.js";
 
 const MODEL = process.env.CHAT_MODEL || "claude-haiku-5-5";
 const MAX_TURNS = 3;
@@ -72,7 +72,7 @@ export default async function handler(req, res) {
     const response = await client.messages.create({
       model: MODEL,
       max_tokens: 800,
-      system: SYSTEM,
+      system: used >= MAX_TURNS ? SYSTEM + FINAL_TURN : SYSTEM,
       output_config: { effort: "low" },
       messages,
     });

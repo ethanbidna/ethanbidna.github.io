@@ -1,0 +1,9 @@
+{
+  "name": "ethanbidna-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "ethanbidna.com: static pages plus the chat and MCP functions, deployed together on Vercel",
+  "engines": { "node": "22.x" },
+  "dependencies": { "@anthropic-ai/sdk": "^1.1.0" }
+}

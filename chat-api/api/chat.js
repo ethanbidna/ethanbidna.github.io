@@ -5,6 +5,8 @@ const MAX_USER_CHARS = 300;
 const MAX_ASSISTANT_CHARS = 1200;
 const ORIGINS = (process.env.ALLOWED_ORIGINS || "https://www.ethanbidna.com,https://ethanbidna.com")
   .split(",").map((s) => s.trim()).filter(Boolean);
+// Preview deployments call their own address; production never allows it.
+if (process.env.VERCEL_ENV === "preview" && process.env.VERCEL_URL) ORIGINS.push(`https://${process.env.VERCEL_URL}`, `https://${process.env.VERCEL_BRANCH_URL || process.env.VERCEL_URL}`);
 
 // Best-effort per-visitor limit. Serverless instances are short-lived, so this only
 // slows down simple abuse. The real monthly cap is the spend limit on the Anthropic

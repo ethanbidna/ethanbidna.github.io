@@ -1,8 +1,5 @@
-import Anthropic from "@anthropic-ai/sdk";
-import { SYSTEM, FINAL_TURN } from "../lib/prompt.js";
+import { answer, MAX_TURNS } from "../lib/answer.js";
 
-const MODEL = process.env.CHAT_MODEL || "claude-haiku-5-5";
-const MAX_TURNS = 3;
 const MAX_USER_CHARS = 300;
 const MAX_ASSISTANT_CHARS = 1200;
 const ORIGINS = (process.env.ALLOWED_ORIGINS || "https://www.ethanbidna.com,https://ethanbidna.com")
@@ -68,20 +65,12 @@ export default async function handler(req, res) {
   if (!process.env.ANTHROPIC_API_KEY) return res.status(503).json({ error: "unavailable" });
 
   try {
-    const client = new Anthropic({ maxRetries: 1, timeout: 20000 });
-    const response = await client.messages.create({
-      model: MODEL,
-      max_tokens: 800,
-      system: used >= MAX_TURNS ? SYSTEM + FINAL_TURN : SYSTEM,
-      output_config: { effort: "low" },
-      messages,
-    });
-    if (response.stop_reason === "refusal") {
+    const out = await answer(messages);
+    if (out.stop_reason === "refusal") {
       return res.status(200).json({ reply: "I can't help with that one. Please email Ethan directly.", remaining: MAX_TURNS - used });
     }
-    const reply = response.content.filter((b) => b.type === "text").map((b) => b.text).join("\n").trim();
-    if (!reply) return res.status(502).json({ error: "empty" });
-    return res.status(200).json({ reply, remaining: MAX_TURNS - used });
+    if (!out.text) return res.status(502).json({ error: "empty" });
+    return res.status(200).json({ reply: out.text, remaining: MAX_TURNS - used });
   } catch (err) {
     // Includes the spend limit being reached. Never log message content.
     console.error("chat error", err && err.status, err && err.name);

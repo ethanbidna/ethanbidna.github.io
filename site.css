@@ -136,6 +136,7 @@ body.chat-page { padding: 0; height: 100vh; height: 100dvh; display: flex; overf
 .prose ul { margin: 0 0 16px; padding-left: 1.2em; }
 .prose li { margin-bottom: 8px; }
 .facts { margin: 12px 0 0; display: grid; grid-template-columns: minmax(0, 9em) minmax(0, 1fr); gap: 10px 22px; padding: 22px; background: var(--panel); border: 1.5px solid var(--ink); border-radius: 14px; }
+code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: .85em; background: var(--blue-soft); padding: 2px 6px; border-radius: 6px; overflow-wrap: anywhere; }
 .facts dt { color: var(--muted); } .facts dd { margin: 0; overflow-wrap: anywhere; }
 
 footer { max-width: 1160px; margin: 0 auto; padding-block: 28px 44px; border-top: 1.5px solid var(--ink); display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 8px 28px; font-size: 16px; color: var(--muted); }

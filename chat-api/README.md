@@ -19,3 +19,14 @@ The site itself stays static on GitHub Pages. This is the only part that costs m
 
 ## Cost
 A three-question conversation is roughly a thousand tokens in and a few hundred out per turn, which is a fraction of a cent on Haiku. A $10 monthly cap covers thousands of conversations.
+
+## The Ethan MCP server (`api/mcp.js`)
+A read-only [Model Context Protocol](https://modelcontextprotocol.io) server on the same deployment, at `https://YOUR-DEPLOYMENT.vercel.app/api/mcp`.
+- **Tools:** `get_profile`, `get_background`, `get_contact`, and `assess_fit` (takes a job description and returns Ethan's public facts plus instructions for an honest fit assessment, which the caller's own model writes).
+- **Resources and a prompt:** `ethan://profile`, `ethan://facts`, `ethan://contact`, and `introduce_ethan`.
+- **Costs nothing to run:** it never calls a model and holds no secrets. It only serves `lib/profile.js`, the same file the website assistant reads.
+- **Transport:** Streamable HTTP, stateless, JSON responses. Tested against the official MCP client (`npm test`).
+- **Add it to Claude Code:** `claude mcp add --transport http ethan-bidna https://YOUR-DEPLOYMENT.vercel.app/api/mcp`
+- **A nicer address:** point a subdomain such as `mcp.ethanbidna.com` at the deployment in Vercel's domain settings, then use that URL instead.
+
+`scripts/go-live.mjs` publishes the connection instructions on the agents page and in `llms.txt` when you turn everything on.

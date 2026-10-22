@@ -4,7 +4,16 @@
   "private": true,
   "type": "module",
   "description": "Small serverless endpoint for the Ask Ethan assistant on ethanbidna.com",
-  "engines": { "node": ">=20" },
-  "scripts": { "test": "node test/handler.test.mjs" },
-  "dependencies": { "@anthropic-ai/sdk": "^1.1.0" }
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node test/handler.test.mjs && node test/mcp.test.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.1.0"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.1"
+  }
 }

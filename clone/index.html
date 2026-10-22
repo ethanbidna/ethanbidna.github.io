@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ethan Bidna's AI Clone | Ask about his work</title>
-<meta name="description" content="Talk to Ethan Bidna's AI clone. Ask what he has built, how he approaches AI products, and what working together would look like.">
+<meta name="description" content="Talk to Ethan Bidna's AI clone. Ask about his work in product management and AI enablement.">
 <link rel="canonical" href="https://www.ethanbidna.com/clone/">
 <meta name="theme-color" content="#adacb0">
 <meta name="author" content="Ethan S. Bidna">
@@ -15,7 +15,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Ethan Bidna">
 <meta property="og:title" content="Ethan Bidna's AI Clone | Ask about his work">
-<meta property="og:description" content="Talk to Ethan Bidna's AI clone. Ask what he has built, how he approaches AI products, and what working together would look like.">
+<meta property="og:description" content="Talk to Ethan Bidna's AI clone. Ask about his work in product management and AI enablement.">
 <meta property="og:url" content="https://www.ethanbidna.com/clone/">
 <meta property="og:image" content="https://www.ethanbidna.com/og.png">
 <meta property="og:image:width" content="1200">
@@ -23,7 +23,7 @@
 <meta property="og:image:alt" content="Ethan Bidna. AI and data products. Boston, MA.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Ethan Bidna's AI Clone | Ask about his work">
-<meta name="twitter:description" content="Talk to Ethan Bidna's AI clone. Ask what he has built, how he approaches AI products, and what working together would look like.">
+<meta name="twitter:description" content="Talk to Ethan Bidna's AI clone. Ask about his work in product management and AI enablement.">
 <meta name="twitter:image" content="https://www.ethanbidna.com/og.png">
 
 
@@ -37,7 +37,7 @@
   <header class="bar"><a class="wordmark" href="/">Ethan Bidna</a><nav aria-label="Primary"><a href="/clone/" aria-current="page" id="nav-clone" hidden>AI clone</a><a href="/contact/">Work with me</a><a href="/agents/">For agents</a></nav></header>
   <main class="page" id="clone" data-endpoint="">
     <h1>Ask my AI clone.</h1>
-    <p class="lead">It knows my work and answers the way I would.</p>
+    <p class="lead">Ask it about my work. It answers the way I would.</p>
 
     <div class="offline" id="offline">
       <p>My AI clone is not online yet. In the meantime, let's talk directly.</p>
@@ -101,10 +101,10 @@
     } finally { busy = false; if (!done) { send.disabled = false; input.focus({ preventScroll: true }); } }
   }
   form.addEventListener("submit", function (e) { e.preventDefault(); ask(input.value); });
-  ["What has Ethan built?", "How does he approach AI products?", "What would working together look like?"].forEach(function (s) {
+  ["What do you do?", "What is your background?", "How could we work together?"].forEach(function (s) {
     var b = document.createElement("button"); b.type = "button"; b.textContent = s; b.addEventListener("click", function () { ask(s); }); suggest.appendChild(b);
   });
-  add("bot", "Hi, I'm Ethan's AI clone. Ask me about his work: what he has built, how he thinks, or what working together would look like.");
+  add("bot", "Hi, I'm Ethan's AI clone. Ask me about his work.");
   var q = new URLSearchParams(location.search).get("q");
   if (q) { history.replaceState(null, "", location.pathname); ask(q.slice(0, 300)); }
 })();

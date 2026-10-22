@@ -6,7 +6,7 @@
 - Name: Ethan S. Bidna
 - Location: Boston, MA, United States
 - Focus: AI product management and enablement
-- Background: data and research, then product. Economics, University of Rochester
+- Background: data and research, then product
 - Email: ethansbidna@gmail.com
 - LinkedIn: https://www.linkedin.com/in/ethanbidna/
 

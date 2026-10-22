@@ -46,6 +46,9 @@ const html = `<!DOCTYPE html>
 <meta name="author" content="Ethan S. Bidna">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="alternate" type="text/plain" href="/.well-known/agents.txt" title="agents.txt">
 <link rel="alternate" type="text/plain" href="/llms.txt" title="Summary for AI agents">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Ethan Bidna">
@@ -89,4 +92,6 @@ const html = `<!DOCTYPE html>
 </html>
 `;
 fs.writeFileSync(path.join(root, "evals/index.html"), html);
+import { execFileSync } from "node:child_process";
+execFileSync("node", [path.join(root, "scripts/harden.mjs")], { stdio: "ignore" });
 console.log(`evals/index.html: ${cases.length} cases, ${codeN + judgeN} checks`);

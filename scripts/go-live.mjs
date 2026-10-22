@@ -1,6 +1,7 @@
 // Turns the Ask me anything page on. Usage: node scripts/go-live.mjs https://YOUR-DEPLOYMENT/api/chat
 // Run it from the repo root after the chat-api function is deployed.
 import fs from "node:fs";
+import { execFileSync } from "node:child_process";
 const endpoint = process.argv[2];
 if (!/^https:\/\/.+\/api\/chat$/.test(endpoint || "")) { console.error("Give the full https URL ending in /api/chat"); process.exit(1); }
 const edit = (file, fn) => { const before = fs.readFileSync(file, "utf8"), after = fn(before); if (before === after) console.warn("no change:", file); fs.writeFileSync(file, after); };
@@ -10,7 +11,8 @@ edit("ask/index.html", (s) => s.replace('data-endpoint=""', `data-endpoint="${en
 edit("sitemap.xml", (s) => s.includes("/ask/") ? s : s.replace("  <url><loc>https://www.ethanbidna.com/agents/</loc>", "  <url><loc>https://www.ethanbidna.com/ask/</loc><lastmod>2026-10-22</lastmod><priority>0.7</priority></url>\n  <url><loc>https://www.ethanbidna.com/agents/</loc>"));
 edit("llms.txt", (s) => s.includes("/ask/") ? s : s.replace("- [Contact]", "- [Ask me anything](https://www.ethanbidna.com/ask/): ask an AI assistant trained on Ethan's work\n- [Contact]"));
 const mcpUrl = endpoint.replace(/\/api\/chat$/, "/api/mcp");
-edit("agents/index.html", (s) => s.replaceAll("https://YOUR-DEPLOYMENT.vercel.app/api/mcp", mcpUrl));
+for (const f of ["agents/index.html", "agents.txt", ".well-known/agents.txt"]) edit(f, (s) => s.replaceAll("https://YOUR-DEPLOYMENT.vercel.app/api/mcp", mcpUrl));
 edit("llms.txt", (s) => s.includes("MCP server") ? s : s.trimEnd() + `\n- MCP server (read-only tools about Ethan): ${mcpUrl}\n`);
+execFileSync("node", ["scripts/harden.mjs", new URL(endpoint).origin], { stdio: "inherit" });
 console.log("Ask me anything enabled with", endpoint);
 console.log("MCP server listed at", mcpUrl);

@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-EQdUcZjUdR4U0x6q7T7L1zQoYZBe8UPB7eq/kth/Cb8=' 'sha256-aNf57hD6yLCNsnmVMfCNiqfKazAcxQLsY8t4s0awA0k='; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<script id="frame-guard">if (window.top !== window.self) { window.top.location = window.self.location; }</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Contact Ethan Bidna | Let's build together</title>
 <meta name="description" content="Get in touch with Ethan Bidna, who works in AI product management and enablement.">
@@ -10,6 +13,9 @@
 <meta name="author" content="Ethan S. Bidna">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="alternate" type="text/plain" href="/.well-known/agents.txt" title="agents.txt">
 <link rel="alternate" type="text/plain" href="/llms.txt" title="Summary for AI agents">
 
 <meta property="og:type" content="website">
@@ -27,6 +33,17 @@
 <meta name="twitter:image" content="https://www.ethanbidna.com/og.png">
 
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "@id": "https://www.ethanbidna.com/contact/#page",
+  "url": "https://www.ethanbidna.com/contact/",
+  "name": "Contact Ethan Bidna",
+  "about": { "@id": "https://www.ethanbidna.com/#person" },
+  "isPartOf": { "@id": "https://www.ethanbidna.com/#website" }
+}
+</script>
 <link rel="preload" href="/fonts/bricolage-latin-opsz.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/site.css">
 </head>

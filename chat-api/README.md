@@ -37,3 +37,10 @@ A test suite for the assistant, built around failure modes, binary checks, and j
 - `OPENROUTER_API_KEY=... npm run evals:live -- --yes` runs the real thing (about 200 calls, roughly $1 to $3).
 - `node scripts/build-evals-page.mjs` (from the repo root) regenerates the public `/evals/` page from the suite itself. It lists only the checks and test conversations, no results.
 - `.github/workflows/evals.yml` runs the free tests on every change. A live run is a manual job that needs an `ANTHROPIC_API_KEY` repository secret.
+
+## Security notes
+
+- The site is static on GitHub Pages, which cannot send custom HTTP headers. Each page therefore carries a Content-Security-Policy in a `<meta>` tag (no inline code except hashed scripts, no third-party scripts, no framing via a small guard script). After editing any page's inline script, run `node scripts/harden.mjs` to refresh the hashes; `npm test` fails if they are stale. Turn on **Enforce HTTPS** in the repository's Pages settings. For real headers (HSTS, `frame-ancestors`), put Cloudflare in front of the domain.
+- The API functions send `nosniff`, `no-store` and `no-referrer`, check the request origin, validate and rate-limit input, never log message bodies, and hold keys only in Vercel environment variables. `vercel.json` adds HSTS and a locked-down CSP.
+- `/.well-known/security.txt` expires 2027-10-22; renew it before then (a test reminds you).
+- Dependabot watches the npm and GitHub Actions dependencies weekly.

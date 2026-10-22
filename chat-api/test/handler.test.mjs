@@ -28,6 +28,7 @@ const q = (t) => ({ role: "user", content: t });
 const a = (t) => ({ role: "assistant", content: t });
 
 let r = await call({ messages: [q("What do you do?")] });
+assert.equal(r.headers["X-Content-Type-Options"], "nosniff"); assert.equal(r.headers["Cache-Control"], "no-store");
 assert.equal(r.code, 200); assert.equal(r.body.remaining, 2); assert.match(r.body.reply, /AI and data products/);
 assert.equal(last.model, "claude-haiku-5-5"); assert.ok(last.max_tokens <= 800); assert.match(last.system, /Ethan S\. Bidna/);
 

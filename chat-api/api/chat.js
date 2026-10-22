@@ -22,6 +22,10 @@ function limited(ip) {
 }
 
 function cors(req, res) {
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("Referrer-Policy", "no-referrer");
+  res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
+  res.setHeader("Cache-Control", "no-store");
   const origin = req.headers.origin;
   if (origin && ORIGINS.includes(origin)) {
     res.setHeader("Access-Control-Allow-Origin", origin);

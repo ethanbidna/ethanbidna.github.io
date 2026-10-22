@@ -12,8 +12,8 @@ The site itself stays static on GitHub Pages. This is the only part that costs m
 - Conversations are not stored and message text is never logged.
 
 ## Set up (about ten minutes)
-1. **Spend cap (do this first).** In the Anthropic Console, create a workspace just for this site, set a monthly spend limit (for example $10), and create an API key inside it. When the limit is hit, the function replies "unavailable" and the page tells visitors to email you. This is the hard monthly cap.
-2. **Vercel project.** Import this repo and set the Root Directory to `chat-api`. Add the environment variable `ANTHROPIC_API_KEY` (the key from step 1).
+1. **Spend cap (do this first).** Easiest: [OpenRouter](https://openrouter.ai). Add a small prepaid balance (for example $10), then create an API key with a **credit limit** (and optionally a monthly reset). When the limit is reached OpenRouter refuses requests, the function replies "unavailable", and the page tells visitors to email you. Alternative: an Anthropic Console workspace with a monthly spend limit and its own API key.
+2. **Vercel project.** Import this repo and set the Root Directory to `chat-api`. Add the environment variable `OPENROUTER_API_KEY` (or `ANTHROPIC_API_KEY`) with the key from step 1. If both are set, OpenRouter is used. Optional: `CHAT_MODEL` and `JUDGE_MODEL` override the default model names, and `BLOCKED_TERMS` (comma-separated) lists words the assistant must never say.
 3. **Rate limit (recommended).** In Vercel, Firewall, add a rate limit rule on `/api/chat`, for example 20 requests per hour per IP.
 4. **Turn it on.** From the repo root run `node scripts/go-live.mjs https://YOUR-DEPLOYMENT.vercel.app/api/chat`. It sets the endpoint on `/ask/`, reveals the Ask me anything links on the homepage and contact page, makes `/ask/` indexable, and adds it to the sitemap and `llms.txt`. Until then the page says it is not online and the links stay hidden.
 
@@ -34,6 +34,6 @@ A read-only [Model Context Protocol](https://modelcontextprotocol.io) server on 
 ## Evals (`evals/`)
 A test suite for the assistant, built around failure modes, binary checks, and judges that are validated against hand-labeled examples before they are trusted. See `evals/README.md` for the method and its honest limits.
 - `npm test` runs everything that is free: the endpoint, the MCP server, the checks, the metrics, and the whole harness on recorded answers with deliberate failures.
-- `ANTHROPIC_API_KEY=... npm run evals:live -- --yes` runs the real thing (about 170 calls, roughly $1 to $3).
+- `OPENROUTER_API_KEY=... npm run evals:live -- --yes` runs the real thing (about 170 calls, roughly $1 to $3).
 - `node scripts/publish-evals.mjs` (from the repo root) copies a trimmed result to the public `/evals/` page. It refuses anything that is not a live run. `scripts/go-live.mjs` shows the page and links to it once results exist.
 - `.github/workflows/evals.yml` runs the free tests on every change. A live run is a manual job that needs an `ANTHROPIC_API_KEY` repository secret.

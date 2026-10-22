@@ -1,8 +1,8 @@
 import { JUDGE_CRITERIA } from "./criteria.mjs";
 import { FACTS } from "../lib/facts.js";
+import { judgeModel } from "../lib/provider.js";
 
 // LLM-as-judge for one failure mode at a time. The verdict is binary (PASS or FAIL), and the judge writes a short critique first.
-export const JUDGE_MODEL = process.env.JUDGE_MODEL || "claude-sonnet-5-5";
 
 const history = (messages) => messages.map((m) => `${m.role === "user" ? "Visitor" : "Assistant"}: ${m.content}`).join("\n");
 
@@ -42,7 +42,7 @@ export function parseVerdict(text) {
   throw new Error("Judge reply had no verdict: " + t.slice(0, 120));
 }
 
-export async function runJudge({ client, model = JUDGE_MODEL, criterion, messages, answer, examples }) {
+export async function runJudge({ client, model = judgeModel(), criterion, messages, answer, examples }) {
   const response = await client.messages.create({
     model, max_tokens: 700, output_config: { effort: "low" },
     messages: [{ role: "user", content: judgePrompt({ criterion, messages, answer, examples }) }],

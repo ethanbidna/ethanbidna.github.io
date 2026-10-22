@@ -1,4 +1,5 @@
 import { answer, MAX_TURNS } from "../lib/answer.js";
+import { getClient } from "../lib/provider.js";
 
 const MAX_USER_CHARS = 300;
 const MAX_ASSISTANT_CHARS = 1200;
@@ -62,10 +63,11 @@ export default async function handler(req, res) {
   if (!messages) return res.status(400).json({ error: "bad_request" });
   const used = messages.filter((m) => m.role === "user").length;
 
-  if (!process.env.ANTHROPIC_API_KEY) return res.status(503).json({ error: "unavailable" });
+  const client = getClient();
+  if (!client) return res.status(503).json({ error: "unavailable" });
 
   try {
-    const out = await answer(messages);
+    const out = await answer(messages, { client });
     if (out.stop_reason === "refusal") {
       return res.status(200).json({ reply: "I can't help with that one. Please email Ethan directly.", remaining: MAX_TURNS - used });
     }

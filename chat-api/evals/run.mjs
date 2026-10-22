@@ -2,12 +2,12 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { execSync } from "node:child_process";
-import Anthropic from "@anthropic-ai/sdk";
 import { APPLIES, CODE_CRITERIA, JUDGE_CRITERIA, CRITERIA, TAXONOMY_V0, THRESHOLDS } from "./criteria.mjs";
 import { CHECKS } from "./checks.mjs";
-import { runJudge, JUDGE_MODEL } from "./judge.mjs";
+import { runJudge } from "./judge.mjs";
 import { confusion, rates, correctedRate, bootstrapCorrected } from "./metrics.mjs";
-import { answer as askAssistant, MODEL } from "../lib/answer.js";
+import { answer as askAssistant } from "../lib/answer.js";
+import { getClient, chatModel, providerName, judgeModel as judgeModelFor } from "../lib/provider.js";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const read = (f) => JSON.parse(fs.readFileSync(path.join(here, f), "utf8"));
@@ -19,7 +19,8 @@ async function pool(items, n, fn) {
 }
 
 const PRICES = { "claude-haiku-5-5": [0.1, 0.5], "claude-sonnet-5-5": [2, 10], "claude-opus-5-5": [4, 20] };  // USD per million tokens (input, output)
-const cost = (model, u) => PRICES[model] ? (u.input * PRICES[model][0] + u.output * PRICES[model][1]) / 1e6 : null;
+const cost = (model, u) => (u.reportedCost > 0 ? u.reportedCost : PRICES[model] ? (u.input * PRICES[model][0] + u.output * PRICES[model][1]) / 1e6 : null);
+const defaultJudgeModel = () => judgeModelFor();
 const gitSha = () => { try { return execSync("git rev-parse --short HEAD", { cwd: here, stdio: ["ignore", "pipe", "ignore"] }).toString().trim(); } catch { return null; } };
 
 export function planCalls({ cases, labeled }) {
@@ -30,14 +31,15 @@ export function planCalls({ cases, labeled }) {
 
 // source: "fixtures" (recorded answers, for testing the harness) or "live" (calls the real assistant).
 // judge:  "mock" | "mock-bad" (for tests) or "live" (calls the judge model).
-export async function runEvals({ source = "fixtures", judge = "mock", client, model = MODEL, judgeModel = JUDGE_MODEL, concurrency = 4, limit, now = new Date() } = {}) {
+export async function runEvals({ source = "fixtures", judge = "mock", client, model = chatModel(), judgeModel = defaultJudgeModel(), concurrency = 4, limit, now = new Date() } = {}) {
   let cases = read("cases.json"); if (limit) cases = cases.slice(0, limit);
   const labeled = read("labeled.json");
   const fixtures = source === "fixtures" ? read("fixtures/outputs.json") : null;
-  if ((source === "live" || judge === "live") && !client) client = new Anthropic({ maxRetries: 2, timeout: 60000 });
+  if ((source === "live" || judge === "live") && !client) client = getClient();
+  if ((source === "live" || judge === "live") && !client) throw new Error("No model provider is configured");
 
   const usage = { assistant: { input: 0, output: 0 }, judge: { input: 0, output: 0 } };
-  const addUsage = (bucket, u) => { if (u) { usage[bucket].input += u.input_tokens || 0; usage[bucket].output += u.output_tokens || 0; } };
+  const addUsage = (bucket, u) => { if (u) { usage[bucket].input += u.input_tokens || 0; usage[bucket].output += u.output_tokens || 0; usage[bucket].reportedCost = (usage[bucket].reportedCost || 0) + (typeof u.cost === "number" ? u.cost : 0); } };
 
   // 1. Answers
   const traces = await pool(cases, concurrency, async (c) => {
@@ -133,7 +135,7 @@ if (import.meta.url === pathToFileURL(process.argv[1] || "").href) {
   const a = args(process.argv), source = a.source || "fixtures", judge = a.judge || (source === "live" ? "live" : "mock");
   const out = path.join(here, "results"); fs.mkdirSync(out, { recursive: true });
   if (source === "live" || judge === "live") {
-    if (!process.env.ANTHROPIC_API_KEY) { console.error("A live run needs ANTHROPIC_API_KEY in the environment."); process.exit(2); }
+    if (!providerName()) { console.error("A live run needs OPENROUTER_API_KEY or ANTHROPIC_API_KEY in the environment."); process.exit(2); }
     const plan = planCalls({ cases: read("cases.json"), labeled: read("labeled.json") });
     const calls = (source === "live" ? plan.answers : 0) + plan.judgeOnCases + plan.judgeValidation * 1;
     console.log(`This will make about ${calls} API calls (${plan.answers} assistant answers, ${plan.judgeOnCases + plan.judgeValidation} judge verdicts). Expect roughly $1 to $3.`);

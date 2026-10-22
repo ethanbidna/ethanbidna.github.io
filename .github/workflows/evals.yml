@@ -1,0 +1,52 @@
+name: assistant-evals
+
+# Every change to the assistant runs the free tests. A real run against the API is manual and costs money.
+on:
+  pull_request:
+    paths: ["chat-api/**"]
+  workflow_dispatch:
+    inputs:
+      live:
+        description: "Run the live evals against the real API (spends money)"
+        type: boolean
+        default: false
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: chat-api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: chat-api/package-lock.json
+      - run: npm ci
+      - run: npm test
+
+  live-evals:
+    if: github.event_name == 'workflow_dispatch' && inputs.live
+    needs: tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: chat-api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: chat-api/package-lock.json
+      - run: npm ci
+      - run: npm run evals:live -- --yes --gate
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: eval-results
+          path: chat-api/evals/results/

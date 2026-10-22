@@ -8,7 +8,9 @@
     "node": ">=20"
   },
   "scripts": {
-    "test": "node test/handler.test.mjs && node test/mcp.test.mjs"
+    "test": "node test/handler.test.mjs && node test/mcp.test.mjs && node test/evals.test.mjs",
+    "evals:fixtures": "node evals/run.mjs --source=fixtures --judge=mock",
+    "evals:live": "node evals/run.mjs --source=live --judge=live"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.1.0"

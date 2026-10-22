@@ -68,56 +68,264 @@
 }
 </script>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&display=swap">
 <style>
   :root {
-    --bg: #ffffff;
-    --fg: #101214;
-    --muted: #5d636b;
-    --line: #dfe2e6;
-    --accent: #1d4ed8;
-    --accent-ink: #ffffff;
+    --bg: #fbfaf6;
+    --panel: #ffffff;
+    --ink: #0f1020;
+    --muted: #4d5062;
+    --blue: #2f4bff;
+    --yellow: #ffdd33;
+    --pink: #ff5c93;
+    --green: #17b26a;
+    --red: #e5384f;
+    --shadow: var(--ink);
+    --display: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    --body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     color-scheme: light dark;
   }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #101214; --fg: #f1f3f5; --muted: #9aa1ab; --line: #272b31; --accent: #7aa2ff; --accent-ink: #101214; }
+    :root { --bg: #0e0f18; --panel: #171927; --ink: #f4f4f8; --muted: #a3a6ba; --blue: #7d90ff; --shadow: #2f4bff; --green: #3ddc97; --red: #ff6b7f; }
   }
   * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
-  body {
-    margin: 0; min-height: 100vh; display: flex; flex-direction: column;
-    background: var(--bg); color: var(--fg);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    font-size: 19px; line-height: 1.6;
-    padding: 0 max(24px, env(safe-area-inset-right)) 0 max(24px, env(safe-area-inset-left));
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 19px; line-height: 1.55; overflow-x: hidden;
+    padding: 0 max(20px, env(safe-area-inset-right)) 0 max(20px, env(safe-area-inset-left)); }
+  .wrap { max-width: 1100px; margin: 0 auto; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+
+  .top { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-block: 18px; flex-wrap: wrap; }
+  .logo { font-family: var(--display); font-weight: 800; font-size: 22px; text-decoration: none; letter-spacing: -.02em; }
+  .top nav { display: flex; gap: 20px; font-weight: 600; font-size: 16px; }
+  .top nav a { text-decoration: none; }
+  .top nav a:hover { text-decoration: underline; text-decoration-thickness: 3px; text-decoration-color: var(--pink); text-underline-offset: 5px; }
+
+  /* hero */
+  .hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 48px; align-items: center; padding-block: 36px 56px; }
+  .chip { display: inline-block; font-weight: 700; font-size: 14px; border: 2px solid var(--ink); border-radius: 999px; padding: 3px 12px; background: var(--yellow); color: #0f1020; margin-bottom: 18px; }
+  h1 { font-family: var(--display); font-weight: 800; font-size: clamp(54px, 10vw, 118px); line-height: .9; letter-spacing: -.045em; margin: 0 0 18px -.03em; }
+  .tag { font-family: var(--display); font-weight: 800; font-size: clamp(26px, 3.6vw, 38px); line-height: 1.1; letter-spacing: -.02em; margin: 0 0 14px; }
+  .tag mark { background: var(--yellow); color: #0f1020; padding: 0 .2em; border-radius: 4px; }
+  .joke { margin: 0 0 22px; min-height: 1.6em; color: var(--blue); font-weight: 700; font-size: 18px; }
+  .about { margin: 0 0 30px; max-width: 32em; color: var(--muted); }
+  .actions { display: flex; flex-wrap: wrap; gap: 14px; }
+  .btn { display: inline-block; font: inherit; font-weight: 700; font-size: 17px; color: #0f1020; background: var(--panel); border: 2px solid var(--ink); border-radius: 8px; padding: 12px 22px; text-decoration: none; box-shadow: 5px 5px 0 var(--shadow); cursor: pointer; transition: transform .1s, box-shadow .1s; }
+  .btn.primary { background: var(--blue); color: #fff; }
+  .btn:hover { transform: translate(2px, 2px); box-shadow: 3px 3px 0 var(--shadow); }
+  .btn:active { transform: translate(5px, 5px); box-shadow: 0 0 0 var(--shadow); }
+  @media (prefers-color-scheme: dark) { .btn { color: var(--ink); } .btn.primary { color: #0e0f18; background: var(--blue); } }
+
+  /* photo */
+  .photo-wrap { position: relative; justify-self: center; width: min(100%, 400px); padding: 10px 14px 24px 10px; }
+  .photo { position: relative; aspect-ratio: 4 / 5; border: 3px solid var(--ink); border-radius: 10px; background: var(--blue); box-shadow: 12px 12px 0 var(--shadow); transform: rotate(2deg); overflow: hidden; }
+  .photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .photo .mono { display: none; position: absolute; inset: 0; align-items: center; justify-content: center; font-family: var(--display); font-weight: 800; font-size: 120px; color: #fff; letter-spacing: -.05em; }
+  .photo.nophoto img { display: none; }
+  .photo.nophoto .mono { display: flex; }
+  .sticker { position: absolute; z-index: 2; font-family: var(--display); font-weight: 800; font-size: 17px; padding: 6px 12px; border: 2px solid var(--ink); border-radius: 8px; box-shadow: 3px 3px 0 var(--shadow); color: #0f1020; cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; }
+  .sticker:active { cursor: grabbing; }
+  .s1 { background: var(--yellow); top: 4%; left: -6%; transform: rotate(-8deg); }
+  .s2 { background: var(--pink); bottom: 4%; right: -4%; transform: rotate(6deg); }
+  .s3 { background: #fff; bottom: 22%; left: -8%; transform: rotate(-4deg); }
+
+  /* marquee */
+  .ticker { border-block: 3px solid var(--ink); background: var(--yellow); color: #0f1020; overflow: hidden; margin-inline: calc(50% - 50vw); }
+  .ticker .track { display: flex; width: max-content; animation: slide 28s linear infinite; }
+  .ticker span { font-family: var(--display); font-weight: 800; font-size: 24px; padding: 10px 0; white-space: nowrap; }
+  .ticker span::after { content: "\2605"; margin: 0 22px; }
+  @keyframes slide { to { transform: translateX(-50%); } }
+
+  /* game */
+  section { padding-block: 64px; }
+  h2 { font-family: var(--display); font-weight: 800; font-size: clamp(34px, 5vw, 56px); line-height: 1; letter-spacing: -.035em; margin: 0 0 12px; }
+  .lead { margin: 0 0 28px; max-width: 34em; color: var(--muted); }
+  .game { max-width: 720px; background: var(--panel); border: 3px solid var(--ink); border-radius: 12px; box-shadow: 10px 10px 0 var(--shadow); overflow: hidden; }
+  .game-head { display: flex; justify-content: space-between; gap: 12px; padding: 12px 20px; border-bottom: 3px solid var(--ink); background: var(--pink); color: #0f1020; font-weight: 800; font-size: 15px; }
+  .game-body { padding: 26px 22px 24px; min-height: 300px; }
+  .claim { font-family: var(--display); font-weight: 800; font-size: clamp(24px, 3.6vw, 34px); line-height: 1.15; letter-spacing: -.02em; margin: 0 0 24px; min-height: 3.5em; }
+  .choices { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .choices .btn { padding: 16px 10px; font-size: 18px; }
+  .choices .real { background: var(--green); color: #0f1020; }
+  .choices .fake { background: var(--red); color: #0f1020; }
+  .choices .btn[disabled] { opacity: .45; cursor: default; transform: none; box-shadow: 5px 5px 0 var(--shadow); }
+  .feedback { margin-top: 20px; min-height: 5.5em; }
+  .feedback .verdict { font-family: var(--display); font-weight: 800; font-size: 22px; margin: 0 0 4px; }
+  .feedback .verdict.ok { color: var(--green); } .feedback .verdict.no { color: var(--red); }
+  .feedback p { margin: 0 0 12px; color: var(--muted); }
+  .score { font-family: var(--display); font-weight: 800; font-size: clamp(44px, 9vw, 84px); line-height: 1; letter-spacing: -.04em; margin: 0 0 8px; }
+  .end-title { font-size: 22px; font-weight: 700; margin: 0 0 22px; }
+
+  .contact { text-align: left; }
+  .email { font-family: var(--display); font-weight: 800; font-size: clamp(26px, 5vw, 52px); letter-spacing: -.03em; word-break: break-word; margin: 0 0 22px; }
+  .email a { text-decoration-thickness: 4px; text-decoration-color: var(--pink); text-underline-offset: 6px; }
+  .small { color: var(--muted); font-size: 14px; }
+  footer { padding-block: 24px 40px; border-top: 3px solid var(--ink); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px 24px; color: var(--muted); font-size: 15px; }
+
+  @media (max-width: 800px) {
+    .hero { grid-template-columns: 1fr; gap: 36px; padding-block: 24px 40px; }
+    .photo-wrap { order: -1; width: min(86%, 320px); justify-self: start; }
+    section { padding-block: 48px; }
   }
-  main { flex: 1; width: 100%; max-width: 720px; margin: 0 auto; padding-block: clamp(64px, 16vh, 160px) 48px; }
-  .where { margin: 0 0 18px; color: var(--muted); font-size: 16px; }
-  h1 { margin: 0 0 20px; font-size: clamp(48px, 11vw, 88px); line-height: 1; letter-spacing: -0.035em; font-weight: 800; }
-  .tag { margin: 0 0 28px; font-size: clamp(24px, 4vw, 32px); line-height: 1.25; letter-spacing: -0.015em; font-weight: 600; }
-  p.about { margin: 0 0 36px; max-width: 34em; color: var(--muted); }
-  .actions { display: flex; flex-wrap: wrap; gap: 12px; }
-  .btn { display: inline-block; padding: 12px 22px; border-radius: 8px; border: 1px solid var(--fg); color: var(--fg); text-decoration: none; font-weight: 600; font-size: 17px; }
-  .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
-  .btn:hover { opacity: .85; }
-  a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
-  footer { max-width: 720px; width: 100%; margin: 0 auto; padding-block: 24px 36px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; font-size: 15px; color: var(--muted); }
-  footer a { color: inherit; }
+  @media (prefers-reduced-motion: reduce) { .ticker .track { animation: none; } html { scroll-behavior: auto; } .btn { transition: none; } }
 </style>
 </head>
 <body>
-<main>
-  <p class="where">Boston, MA</p>
-  <h1>Ethan Bidna</h1>
-  <p class="tag">I build AI and data products.</p>
-  <p class="about">I take products from the first idea through pricing, launch and growth. I started in political data and polling, so I care a lot about whether the numbers are right.</p>
-  <div class="actions">
-    <a class="btn primary" href="mailto:ethansbidna@gmail.com">Email Ethan</a>
-    <a class="btn" href="https://www.linkedin.com/in/ethanbidna/" rel="me">LinkedIn</a>
-  </div>
-</main>
-<footer>
-  <span>&copy; 2026 Ethan S. Bidna</span>
-  <a href="/agents/">Are you an AI agent? Start here.</a>
-</footer>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="/" aria-label="Ethan Bidna home">EB</a>
+    <nav aria-label="Primary"><a href="#play">Play</a><a href="#contact">Contact</a><a href="/agents/">For agents</a></nav>
+  </header>
+
+  <main>
+    <div class="hero">
+      <div>
+        <span class="chip">Boston, MA</span>
+        <h1>Ethan Bidna</h1>
+        <p class="tag">I build <mark>AI and data</mark> products.</p>
+        <p class="joke" id="joke" aria-live="off">Sample size: 1. Results: promising.</p>
+        <p class="about">I take products from the first idea through pricing, launch and growth. I started in political data and polling, so I care a lot about whether the numbers are right.</p>
+        <div class="actions">
+          <a class="btn primary" href="mailto:ethansbidna@gmail.com">Email Ethan</a>
+          <a class="btn" href="https://www.linkedin.com/in/ethanbidna/" rel="me">LinkedIn</a>
+        </div>
+      </div>
+      <div class="photo-wrap">
+        <div class="photo" id="photo">
+          <img src="/img/ethan.jpg" alt="Portrait of Ethan Bidna" width="800" height="1000" fetchpriority="high" onerror="this.parentNode.classList.add('nophoto')">
+          <div class="mono" aria-hidden="true">EB</div>
+        </div>
+        <span class="sticker s1" aria-hidden="true">n = 1</span>
+        <span class="sticker s2" aria-hidden="true">p &lt; 0.05 (probably)</span>
+        <span class="sticker s3" aria-hidden="true">drag me</span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="ticker" aria-hidden="true"><div class="track" id="track"></div></div>
+
+<div class="wrap">
+  <section id="play" aria-labelledby="play-h">
+    <h2 id="play-h">Real or hallucinated?</h2>
+    <p class="lead">I spend my days getting AI to be right. You can try it too. Eight claims, one question each: is it real, or did the model make it up?</p>
+    <div class="game" id="game">
+      <div class="game-head"><span id="g-round">Round 1 of 8</span><span id="g-score">Score 0</span></div>
+      <div class="game-body" id="g-body">
+        <noscript><p>This game needs JavaScript. Ethan builds AI and data products in Boston, MA. Email ethansbidna@gmail.com.</p></noscript>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact" aria-labelledby="contact-h">
+    <h2 id="contact-h">Let's talk.</h2>
+    <p class="lead">Hiring, partnering, or you just beat the game and want to say so.</p>
+    <p class="email"><a href="mailto:ethansbidna@gmail.com">ethansbidna@gmail.com</a></p>
+    <div class="actions">
+      <a class="btn primary" href="mailto:ethansbidna@gmail.com">Email Ethan</a>
+      <a class="btn" href="https://www.linkedin.com/in/ethanbidna/" rel="me">LinkedIn</a>
+    </div>
+  </section>
+
+  <footer>
+    <span>&copy; 2026 Ethan S. Bidna</span>
+    <a href="/agents/">Are you an AI agent? Start here.</a>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* rotating joke line */
+  var jokes = ["Sample size: 1. Results: promising.", "Margin of error: smaller than my coffee order.", "Has strong opinions about weighting.", "Believes every number deserves a footnote.", "Will trade a good eval for a great sandwich."];
+  var jokeEl = document.getElementById("joke"), ji = 0;
+  if (!reduce) setInterval(function () { ji = (ji + 1) % jokes.length; jokeEl.textContent = jokes[ji]; }, 3800);
+
+  /* ticker */
+  var words = ["AI products", "Data", "Evals", "Pricing", "Launches", "Polling", "Strategy", "Boston"];
+  var track = document.getElementById("track"), html = "";
+  for (var r = 0; r < 4; r++) words.forEach(function (w) { html += "<span>" + w + "</span>"; });
+  track.innerHTML = html;
+
+  /* draggable stickers */
+  [].forEach.call(document.querySelectorAll(".sticker"), function (el) {
+    var sx, sy, ox, oy, drag = false;
+    el.addEventListener("pointerdown", function (e) { drag = true; sx = e.clientX; sy = e.clientY; ox = el.offsetLeft; oy = el.offsetTop; el.setPointerCapture(e.pointerId); e.preventDefault(); });
+    el.addEventListener("pointermove", function (e) { if (!drag) return; el.style.left = ox + e.clientX - sx + "px"; el.style.top = oy + e.clientY - sy + "px"; el.style.right = "auto"; el.style.bottom = "auto"; });
+    el.addEventListener("pointerup", function () { drag = false; });
+    el.addEventListener("pointercancel", function () { drag = false; });
+  });
+
+  /* game */
+  var CLAIMS = [
+    { t: "A poll of 1,000 people has a margin of error of about 3 points.", real: true, why: "Roughly plus or minus 3 points at 95% confidence. Polling nerds love this one." },
+    { t: "Goldfish have a three-second memory.", real: false, why: "Hallucination. Goldfish can remember things for months." },
+    { t: "In 1948, a newspaper printed “Dewey Defeats Truman” and got it wrong.", real: true, why: "The Chicago Daily Tribune did. It is one of the most famous polling misses ever." },
+    { t: "Humans only use 10% of their brains.", real: false, why: "Hallucination. Brain scans show activity all over, all the time." },
+    { t: "Octopuses have three hearts.", real: true, why: "Two pump blood through the gills and one pumps it to the rest of the body." },
+    { t: "The Great Wall of China is easily visible from space with the naked eye.", real: false, why: "Hallucination. Astronauts say it is very hard to see without help." },
+    { t: "The Eiffel Tower is taller in summer than in winter.", real: true, why: "Heat expands the iron. The difference is around 15 centimeters." },
+    { t: "Napoleon was unusually short for a man of his time.", real: false, why: "Hallucination. He was about average height. The myth comes from unit confusion and British cartoons." }
+  ];
+  var body = document.getElementById("g-body"), roundEl = document.getElementById("g-round"), scoreEl = document.getElementById("g-score");
+  var order, idx, score, answered;
+
+  function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; }
+
+  function start() { order = shuffle(CLAIMS); idx = 0; score = 0; show(); }
+  function show() {
+    answered = false;
+    roundEl.textContent = "Round " + (idx + 1) + " of " + order.length;
+    scoreEl.textContent = "Score " + score;
+    body.textContent = "";
+    var c = order[idx];
+    var claim = el("p", "claim", c.t); claim.id = "claim";
+    var choices = el("div", "choices");
+    var real = el("button", "btn real", "Real"), fake = el("button", "btn fake", "Hallucinated");
+    real.type = fake.type = "button";
+    real.addEventListener("click", function () { answer(true, real, fake); });
+    fake.addEventListener("click", function () { answer(false, real, fake); });
+    choices.appendChild(real); choices.appendChild(fake);
+    var fb = el("div", "feedback"); fb.id = "fb"; fb.setAttribute("aria-live", "polite");
+    body.appendChild(claim); body.appendChild(choices); body.appendChild(fb);
+  }
+  function answer(guess, real, fake) {
+    if (answered) return; answered = true;
+    var c = order[idx], ok = guess === c.real;
+    if (ok) score++;
+    scoreEl.textContent = "Score " + score;
+    real.disabled = fake.disabled = true;
+    var fb = document.getElementById("fb");
+    fb.appendChild(el("p", "verdict " + (ok ? "ok" : "no"), ok ? "Correct." : "Not quite."));
+    fb.appendChild(el("p", "", c.why));
+    var last = idx === order.length - 1;
+    var next = el("button", "btn primary", last ? "See my score" : "Next claim");
+    next.type = "button";
+    next.addEventListener("click", function () { if (last) finish(); else { idx++; show(); document.getElementById("claim").scrollIntoView({ block: "nearest" }); } });
+    fb.appendChild(next); next.focus({ preventScroll: true });
+  }
+  function finish() {
+    roundEl.textContent = "Finished"; scoreEl.textContent = "Score " + score;
+    var n = order.length, title;
+    if (score === n) title = "Zero hallucinations. You and Ethan should talk.";
+    else if (score >= n - 2) title = "Solid evals. You would catch most of it.";
+    else if (score >= n / 2) title = "Plausible, but shaky. Ethan would add an eval.";
+    else title = "You may be a language model. Ethan can help with that too.";
+    body.textContent = "";
+    body.appendChild(el("p", "score", score + " / " + n));
+    body.appendChild(el("p", "end-title", title));
+    var again = el("button", "btn", "Play again"); again.type = "button"; again.addEventListener("click", start);
+    var mail = el("a", "btn primary", "Tell Ethan"); mail.href = "mailto:ethansbidna@gmail.com?subject=I%20scored%20" + score + "%2F" + n;
+    var row = el("div", "actions"); row.appendChild(again); row.appendChild(mail);
+    body.appendChild(row);
+  }
+  start();
+})();
+</script>
 </body>
 </html>

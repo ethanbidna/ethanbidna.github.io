@@ -51,6 +51,9 @@ h1, h2, h3 { text-wrap: balance; }
 
 /* landing: studio band */
 .studio { position: relative; background: var(--studio); margin-inline: calc(50% - 50vw); padding-inline: calc(50vw - 50%); }
+/* studio light: a soft highlight that follows the cursor over the backdrop and the portrait, like a photographer's light */
+.studio::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0; mix-blend-mode: soft-light;
+  background: radial-gradient(560px circle at var(--lx, 30%) var(--ly, 26%), rgba(255, 255, 255, .72), rgba(255, 255, 255, 0) 64%); }
 .cover { position: relative; min-height: 640px; display: flex; align-items: center; padding-block: 24px 56px; }
 .cover-text { position: relative; z-index: 1; max-width: 640px; }
 h1 { margin: 0 0 18px; font-weight: 800; font-size: clamp(56px, 10.5vw, 112px); line-height: .92; letter-spacing: -.035em; }
@@ -170,13 +173,10 @@ footer a { color: inherit; }
 @media (max-width: 760px) {
   .facts { grid-template-columns: minmax(0, 1fr); gap: 0; } .facts dd { margin-bottom: 12px; }
 }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .cover-text > *, .cover-photo { animation: none; } .btn { transition: none; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .studio::after { background: radial-gradient(560px circle at 30% 26%, rgba(255, 255, 255, .72), rgba(255, 255, 255, 0) 64%); } .cover-text > *, .cover-photo { animation: none; } .btn { transition: none; } }
 .evals details { margin: 10px 0; }
 .evals summary { cursor: pointer; padding: 10px 0; min-height: 44px; }
 .evals .group { border-top: 1px solid var(--line, rgba(0,0,0,.14)); }
 .evals .count { color: var(--muted, #666); font-size: .9em; margin-left: 6px; }
 .evals .then { color: var(--muted, #666); font-size: .85em; padding: 0 4px; }
 .evals li { margin: 8px 0; }
-
-/* the eyes in the portrait follow the pointer (drawn by the script on the home page) */
-.cover-photo .eyes { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }

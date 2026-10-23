@@ -27,5 +27,5 @@ This is a professional profile only. Do not state or guess anything about Ethan'
 - Has launched AI-enabled products and modernized research workflows
 - Leads cross-functional initiatives
 - Rigorous about evidence, from a data science and market research background
-- Builds with AI tools himself, including Claude Code
+- Tests what he ships: the assistant on his site is checked against published evals
 - MCP server (read-only tools about Ethan): https://www.ethanbidna.com/api/mcp

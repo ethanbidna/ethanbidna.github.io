@@ -22,7 +22,7 @@ export const PROFILE = {
     "Has launched new AI-enabled products and modernized research workflows.",
     "Leads cross-functional initiatives.",
     "Comes from data science and market research, so he is rigorous about evidence as well as product.",
-    "Builds with AI tools himself, including Claude Code.",
+    "Tests what he ships: the assistant on his site is checked against a published set of evals.",
     "Is particularly interested in how AI and research technology help organizations use data to make better decisions.",
   ],
   // Topics every assistant must decline. Used in the instructions to AI tools; the real enforcement is in lib/guard.js.

@@ -43,13 +43,15 @@ const PERSONAL_QUESTION = [
 export function isPersonalQuestion(text) { return PERSONAL_QUESTION.some((r) => r.test(String(text || ""))); }
 
 // Things a reply must never contain, whatever the question was.
-const BLOCKED_IN_REPLY = [
+export const BLOCKED_IN_REPLY = [
   /(\+?\d[\d\s().-]{8,}\d)/,
   /\b\d{1,5}\s+[A-Z][\w.]*\s+(Street|St|Ave|Avenue|Road|Rd|Blvd|Lane|Ln|Drive|Dr|Way|Court|Ct)\b/,
   /\b(girlfriend|boyfriend|wife|husband|fianc[eé]e?|divorced|grew up|hometown|born in|birthday|years old)\b/i,
   /\b(is|are|was|got|recently)\s+(now\s+)?(married|dating|single|engaged)\b/i,
   /\b(his|he has|he's got|he had|ethan'?s?)\b[^.!?]{0,40}\b(kids?|children|daughter|son|famil(y|ies)|parents?|mother|father|sisters?|brothers?|siblings?)\b/i,
-  /\b(lives? in|living in|based in|located in|resides? in|moved to|home address|street address)\b/i,
+  /\b(he|ethan|i)\s+(currently\s+|now\s+|still\s+)?(lives?|resides?|moved|relocated)\s+(in|to|near)\b/i,
+  /\b(he|ethan|i)\s+(is|am|'s|'m)\s+(currently\s+)?(based|located)\s+(in|near)\b/i,
+  /\b(his|ethan'?s?|my)\s+(home|street)\s+address\b|\b(home address|street address)\b/i,
   /\b(he|ethan|i)\s+(currently\s+|previously\s+|used to\s+)?(works?|worked|was employed|is employed)\s+(at|for|by)\b/i,
   /\b(his|ethan'?s?)\s+(current\s+|former\s+|previous\s+)?(employer|salary|compensation|pay)\b/i,
   /\b(laid off|fired from|formerly (at|with)|previously (at|with) [A-Z])\b/,

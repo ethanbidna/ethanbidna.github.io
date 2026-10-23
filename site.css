@@ -214,5 +214,6 @@ body.chat-page .chat-app { flex: 1 1 0; }
 .evals-pill .meta { color: var(--muted); }
 .evals-pill .meta span { font-weight: 700; color: var(--blue); }
 .evals-pill:hover { border-color: var(--blue); color: var(--blue); }
-@media (max-width: 640px) { .evals-pill .meta { display: none; } .evals-pill { padding-inline: 12px; } }
+.evals-pill .short { display: none; } .evals-pill { font-weight: 700; }
+@media (max-width: 760px) { .evals-pill .long { display: none; } .evals-pill .short { display: inline; } .evals-pill { padding-inline: 12px; } }
 @media (prefers-reduced-motion: reduce) { .evals-pill { transition: none; } }

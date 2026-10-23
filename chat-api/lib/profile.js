@@ -13,7 +13,7 @@ export const PROFILE = {
   },
   summary: [
     "Ethan Bidna is a senior product manager working at the intersection of AI-powered products and analytics tools. With a background spanning data science, market research, and product management, he specializes in turning ambiguous problems into practical systems that people rely on.",
-    "His work has included launching new AI-enabled products, modernizing research workflows, and leading cross-functional initiatives that connect technical capabilities with commercial outcomes. He is particularly interested in the intersection of artificial intelligence, research technology, and how organizations use data to make better decisions.",
+    "His work has included launching new AI-enabled products, modernizing research workflows, and leading cross-functional initiatives that connect technical capabilities with commercial outcomes. He is most interested in how AI and research technology can help organizations make better decisions with their data.",
   ],
   // Approved things to say. Positive, professional, and true to the summary above.
   talkingPoints: [
@@ -23,7 +23,7 @@ export const PROFILE = {
     "Leads cross-functional initiatives.",
     "Comes from data science and market research, so he is rigorous about evidence as well as product.",
     "Tests what he ships: the assistant on his site is checked against a published set of evals.",
-    "Is particularly interested in how AI and research technology help organizations use data to make better decisions.",
+    "Is most interested in how AI and research technology can help organizations make better decisions with their data.",
   ],
   // Topics every assistant must decline. Used in the instructions to AI tools; the real enforcement is in lib/guard.js.
   neverShare: ["where he lives or is from", "addresses", "phone numbers", "age", "family", "relationships", "friends", "health", "politics and religion", "finances and compensation", "hobbies and private life", "employers, companies, clients, schools or colleagues"],

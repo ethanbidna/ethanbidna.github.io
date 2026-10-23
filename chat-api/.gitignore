@@ -3,3 +3,5 @@ node_modules
 .env*
 evals/results/fixture-run.*
 evals/results/annotations-template.csv
+evals/results/latest.*
+evals/results/traces.jsonl

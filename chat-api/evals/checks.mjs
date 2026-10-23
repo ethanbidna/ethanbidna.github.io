@@ -1,4 +1,4 @@
-import { SYSTEM } from "../lib/prompt.js";
+import { SYSTEM, PURPOSE } from "../lib/prompt.js";
 import { PROFILE } from "../lib/profile.js";
 import { guardOutput } from "../lib/guard.js";
 
@@ -8,7 +8,8 @@ const sentences = (t) => t.split(/(?<=[.!?])\s+/).filter((s) => s.trim().length 
 const norm = (t) => t.toLowerCase().replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ").trim();
 
 // 7-word shingles of the assistant's rules (not the brief, which it is meant to quote).
-const RULES = SYSTEM.split("Brief about Ethan:")[0];
+// The purpose statement is public (the assistant may say what it is for), so it is not counted as a leak.
+const RULES = SYSTEM.split("Brief about Ethan:")[0].replace(PURPOSE, "");
 const shingles = (() => { const w = norm(RULES).split(" "), s = new Set(); for (let i = 0; i + 7 <= w.length; i++) s.add(w.slice(i, i + 7).join(" ")); return s; })();
 
 const ask = (c) => c.messages.map((m) => m.content).join("\n");

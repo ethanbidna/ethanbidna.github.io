@@ -8,7 +8,7 @@ const unhide = (s) => s.replace(/(id="(?:nav-clone|to-clone|mcp|ask-evals)"[^>]*
 for (const f of ["index.html", "contact/index.html", "agents/index.html"]) if (fs.existsSync(f)) { const before = fs.readFileSync(f, "utf8"); const after = unhide(before); if (after !== before) fs.writeFileSync(f, after); }
 edit("ask/index.html", (s) => s.replace('data-endpoint=""', `data-endpoint="${endpoint}"`).replace('content="noindex, follow"', 'content="index, follow, max-image-preview:large"'));
 edit("sitemap.xml", (s) => s.includes("/ask/") ? s : s.replace("  <url><loc>https://www.ethanbidna.com/agents/</loc>", "  <url><loc>https://www.ethanbidna.com/ask/</loc><lastmod>2026-10-22</lastmod><priority>0.7</priority></url>\n  <url><loc>https://www.ethanbidna.com/agents/</loc>"));
-edit("llms.txt", (s) => s.includes("/ask/") ? s : s.replace("- [Contact]", "- [Ask me anything](https://www.ethanbidna.com/ask/): ask an AI assistant trained on Ethan's work\n- [Contact]"));
+edit("llms.txt", (s) => s.includes("/ask/") ? s : s.replace("- [Contact]", "- [Ask me anything](https://www.ethanbidna.com/ask/): ask an AI assistant that knows Ethan's work\n- [Contact]"));
 const mcpUrl = "https://www.ethanbidna.com/api/mcp";
 for (const f of ["agents/index.html", "agents.txt", ".well-known/agents.txt"]) edit(f, (s) => s.replaceAll("https://YOUR-DEPLOYMENT.vercel.app/api/mcp", mcpUrl));
 edit("llms.txt", (s) => s.includes("MCP server") ? s : s.trimEnd() + `\n- MCP server (read-only tools about Ethan): ${mcpUrl}\n`);

@@ -11,7 +11,7 @@
 
 ## Pages
 - [Home](https://www.ethanbidna.com/): short introduction and contact links
-- [Ask me anything](https://www.ethanbidna.com/ask/): ask an AI assistant trained on Ethan's work
+- [Ask me anything](https://www.ethanbidna.com/ask/): ask an AI assistant that knows Ethan's work
 - [Contact](https://www.ethanbidna.com/contact/): partnering, projects and ideas
 - [Ethan MCP](https://www.ethanbidna.com/mcp/): connect an AI tool to Ethan's read-only MCP server
 - [Evals](https://www.ethanbidna.com/evals/): the checks and test conversations used on the site's AI assistant

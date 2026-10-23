@@ -31,6 +31,8 @@ export function createOpenRouterClient(opts = {}) {
         for (const m of params.messages) messages.push({ role: m.role, content: m.content });
         // data_collection "deny" asks OpenRouter to route only to providers that do not store or train on the conversation.
         const body = { model: params.model, messages, max_tokens: params.max_tokens, provider: { data_collection: "deny" } };
+        const effort = params.output_config && params.output_config.effort;
+        if (effort) body.reasoning = { effort };           // keep hidden reasoning small so it cannot use up the reply budget
         let res = await once(body);
         if (res.status >= 500) res = await once(body);          // one retry on a provider error
         if (!res.ok) { const err = new Error(`OpenRouter ${res.status}`); err.status = res.status; err.name = "OpenRouterError"; throw err; }

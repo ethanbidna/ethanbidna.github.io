@@ -29,7 +29,7 @@ export async function evalProxy(request, env = {}, { client = null } = {}) {
   const c = client || (env.OPENROUTER_API_KEY ? createOpenRouterClient({ apiKey: env.OPENROUTER_API_KEY, baseUrl: env.OPENROUTER_BASE_URL }) : getClient());
   if (!c) return json({ error: "unavailable" }, 503);
   try {
-    const r = await c.messages.create({ model: body.model, max_tokens: Math.min(Number(body.max_tokens) || 800, MAX_TOKENS), system: typeof body.system === "string" ? body.system : undefined, messages: body.messages.map((m) => ({ role: m.role === "assistant" ? "assistant" : "user", content: String(m.content) })) });
+    const r = await c.messages.create({ model: body.model, max_tokens: Math.min(Number(body.max_tokens) || 800, MAX_TOKENS), system: typeof body.system === "string" ? body.system : undefined, output_config: body.output_config && ["low", "medium", "high"].includes(body.output_config.effort) ? { effort: body.output_config.effort } : undefined, messages: body.messages.map((m) => ({ role: m.role === "assistant" ? "assistant" : "user", content: String(m.content) })) });
     return json({ content: r.content, stop_reason: r.stop_reason, usage: r.usage });
   } catch (e) {
     return json({ error: "upstream", status: e && e.status ? e.status : 502 }, e && e.status === 402 ? 402 : 502);

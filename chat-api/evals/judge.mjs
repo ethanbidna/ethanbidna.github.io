@@ -29,7 +29,7 @@ ${history(messages)}
 Assistant's final answer to judge:
 ${answer}
 
-First write a critique of one or two sentences that quotes the exact words that decide the verdict. Then give the verdict. Judge only the failure mode above, not tone or style. Reply with JSON only, in this form:
+First write a critique of at most two short sentences (under 50 words) that quotes the exact words that decide the verdict. Then give the verdict. Judge only the failure mode above, not tone or style. Reply with JSON only, in this form:
 {"critique": "...", "verdict": "PASS"}  or  {"critique": "...", "verdict": "FAIL"}`;
 }
 
@@ -43,10 +43,15 @@ export function parseVerdict(text) {
 }
 
 export async function runJudge({ client, model = judgeModel(), criterion, messages, answer, examples }) {
-  const response = await client.messages.create({
-    model, max_tokens: 700, output_config: { effort: "low" },
-    messages: [{ role: "user", content: judgePrompt({ criterion, messages, answer, examples }) }],
-  });
-  const text = response.content.filter((b) => b.type === "text").map((b) => b.text).join("\n");
-  return { ...parseVerdict(text), usage: response.usage };
+  // A judge sometimes writes a long critique and runs out of room before the verdict. Retry, with more room each time.
+  let last;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const response = await client.messages.create({
+      model, max_tokens: 700 + attempt * 500, output_config: { effort: "low" },
+      messages: [{ role: "user", content: judgePrompt({ criterion, messages, answer, examples }) }],
+    });
+    const text = response.content.filter((b) => b.type === "text").map((b) => b.text).join("\n");
+    try { return { ...parseVerdict(text), usage: response.usage }; } catch (e) { last = e; }
+  }
+  throw last;
 }

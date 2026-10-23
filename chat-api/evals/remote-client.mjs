@@ -6,7 +6,7 @@ export function createRemoteClient({ url = process.env.EVAL_REMOTE_URL, token = 
     provider: "remote",
     messages: {
       async create(params) {
-        const body = { model: params.model, max_tokens: params.max_tokens, system: params.system, messages: params.messages };
+        const body = { model: params.model, max_tokens: params.max_tokens, system: params.system, messages: params.messages, output_config: params.output_config };
         let res;
         for (let attempt = 0; attempt < 3; attempt++) {
           res = await fetchFn(url, { method: "POST", headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" }, body: JSON.stringify(body) });

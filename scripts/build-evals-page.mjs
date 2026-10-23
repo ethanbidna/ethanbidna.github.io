@@ -21,18 +21,42 @@ const GROUPS = {
   multi_turn_final: "The last question of a conversation",
 };
 
-const criteriaRows = (obj, withDefs) => Object.entries(obj).map(([id, c]) =>
-  `<li><b>${esc(c.name)}</b> ${esc(c.plain)}${withDefs ? `<details><summary>Pass and fail</summary><p><b>Pass.</b> ${esc(c.pass)}</p><p><b>Fail.</b> ${esc(c.fail)}</p></details>` : ""}</li>`).join("\n      ");
+const codeIds = Object.keys(CODE_CRITERIA), judgeIds = Object.keys(JUDGE_CRITERIA);
+const ALL = { ...CODE_CRITERIA, ...JUDGE_CRITERIA };
+const ids = [...codeIds, ...judgeIds];
+const typeOf = (id) => (id in JUDGE_CRITERIA ? "judge" : "code");
+const cats = Object.keys(GROUPS);
+const SHORT = { basics: "basics", unknown: "unknown", identity: "identity", injection: "injection", commitment: "commit", off_topic: "off-topic", abuse: "abuse", personal: "personal", multi_turn_final: "final turn" };
+const countBy = (cat) => cases.filter((c) => c.category === cat).length;
+const appliesTo = (id) => cats.filter((c) => (APPLIES[c] || []).includes(id));
+const chip = (t) => `<span class="chip ${t}">${t === "judge" ? "LLM judge" : "code"}</span>`;
+const inputOf = (c) => c.messages.filter((m) => m.role === "user").map((m) => m.content).join("  →  ");
 
-const groupHtml = Object.entries(GROUPS).map(([cat, title]) => {
-  const list = cases.filter((c) => c.category === cat);
-  if (!list.length) return "";
-  const items = list.map((c) => `<li>${c.messages.filter((m) => m.role === "user").map((m) => esc(m.content)).join(' <span class="then">then</span> ')}</li>`).join("\n        ");
-  return `<details class="group"><summary>${esc(title)} <span class="count">${list.length}</span></summary>\n      <ul class="plain">\n        ${items}\n      </ul></details>`;
-}).filter(Boolean).join("\n      ");
+const evaluatorRows = ids.map((id) => {
+  const c = ALL[id], t = typeOf(id), n = appliesTo(id).length;
+  const defs = t === "judge" ? `<details><summary>Pass / fail criteria</summary><p><b>Pass.</b> ${esc(c.pass)}</p><p><b>Fail.</b> ${esc(c.fail)}</p></details>` : "";
+  return `<tr><td><code>${id}</code></td><td>${esc(c.name)}</td><td>${chip(t)}</td><td>${esc(c.plain)}${defs}</td><td class="num">${n}<span class="of">/${cats.length}</span></td></tr>`;
+}).join("\n          ");
+
+const matrixHead = cats.map((c) => `<th scope="col" class="mx"><span>${SHORT[c]}</span><small>n=${countBy(c)}</small></th>`).join("");
+const matrixRows = ids.map((id) => {
+  const t = typeOf(id);
+  const cells = cats.map((c) => (APPLIES[c] || []).includes(id) ? `<td class="mx"><span class="cell ${t}" title="${id} runs on ${SHORT[c]}"></span><span class="sr-only">runs</span></td>` : `<td class="mx"><span class="cell off"></span><span class="sr-only">not run</span></td>`).join("");
+  return `<tr><th scope="row"><code>${id}</code></th>${cells}</tr>`;
+}).join("\n          ");
+
+const maxCat = Math.max(...cats.map(countBy));
+const dist = cats.map((c) => `<li><span class="lab">${SHORT[c]}</span><span class="segs" role="img" aria-label="${countBy(c)} examples">${Array.from({ length: maxCat }, (_, k) => `<i class="seg ${k < countBy(c) ? "on" : ""}"></i>`).join("")}</span><span class="val">${countBy(c)}</span></li>`).join("\n        ");
+
+const datasetRows = cases.map((c) => {
+  const on = APPLIES[c.category] || [];
+  const turns = c.messages.filter((m) => m.role === "user").length;
+  const pips = ids.map((id) => `<i class="pip ${on.includes(id) ? typeOf(id) : "off"}"></i>`).join("");
+  return `<tr><td><code>${c.id}</code></td><td><span class="chip cat">${SHORT[c.category]}</span></td><td class="num">${turns}</td><td class="in"><code title="${esc(inputOf(c))}">${esc(inputOf(c))}</code></td><td><span class="pips" role="img" aria-label="${on.length} evaluators">${pips}</span> <span class="n">${on.length}</span></td></tr>`;
+}).join("\n          ");
 
 const codeN = Object.keys(CODE_CRITERIA).length, judgeN = Object.keys(JUDGE_CRITERIA).length;
-const desc = `The ${cases.length} test conversations and ${codeN + judgeN} pass or fail checks used to test the AI assistant on Ethan Bidna's site.`;
+const desc = `The evaluators and the ${cases.length}-example dataset used to test the AI assistant on Ethan Bidna's site: ${codeN} code checks and ${judgeN} LLM judges across ${cats.length} categories.`;
 
 const html = `<!DOCTYPE html>
 <html lang="en">
@@ -70,22 +94,55 @@ const html = `<!DOCTYPE html>
 <body>
 <div class="topbar"><div class="wrap"><header class="bar"><a class="wordmark" href="/">Ethan Bidna</a><nav aria-label="Primary"><a href="/ask/" id="nav-clone"><span class="long">Ask me anything</span><span class="short">Ask me</span></a><a href="/mcp/">Ethan MCP</a><a href="/contact/">Contact</a></nav></header></div></div>
 <div class="wrap">
-    <main class="page evals">
+  <main class="ev" id="main">
+    <p class="ev-crumb"><span>assistant</span> <span class="sl">/</span> <b>evals</b></p>
     <h1>Evals</h1>
-    <p class="lead">${cases.length} test conversations. ${codeN + judgeN} pass or fail checks.</p>
+    <div class="ev-stats">
+      <div><span class="k">Examples</span><span class="v">${cases.length}</span></div>
+      <div><span class="k">Evaluators</span><span class="v">${codeN + judgeN}</span></div>
+      <div><span class="k">Code checks</span><span class="v">${codeN}</span></div>
+      <div><span class="k">LLM judges</span><span class="v">${judgeN}</span></div>
+      <div><span class="k">Categories</span><span class="v">${cats.length}</span></div>
+    </div>
+    <nav class="ev-tabs" aria-label="Sections"><a href="#evaluators">Evaluators <i>${codeN + judgeN}</i></a><a href="#coverage">Coverage</a><a href="#dataset">Dataset <i>${cases.length}</i></a></nav>
 
-    <h2>Checks</h2>
-    <p>Each check tests one thing and is a plain pass or fail.</p>
-    <ul class="plain">
-      ${criteriaRows(CODE_CRITERIA, false)}
-    </ul>
-    <p>Judged by an AI, one narrow question at a time.</p>
-    <ul class="plain">
-      ${criteriaRows(JUDGE_CRITERIA, true)}
-    </ul>
+    <section id="evaluators" class="ev-sec">
+      <h2>Evaluators</h2>
+      <div class="ev-card tbl"><table>
+        <thead><tr><th>ID</th><th>Name</th><th>Type</th><th>What it checks</th><th class="num">Runs on</th></tr></thead>
+        <tbody>
+          ${evaluatorRows}
+        </tbody>
+      </table></div>
+    </section>
 
-    <h2>Test conversations</h2>
-    ${groupHtml}
+    <section id="coverage" class="ev-sec">
+      <h2>Coverage</h2>
+      <p class="key"><span class="cell code"></span> code check <span class="cell judge"></span> LLM judge <span class="cell off"></span> not run on that category</p>
+      <div class="ev-two">
+        <div class="ev-card tbl"><table class="matrix">
+          <thead><tr><th>Evaluator</th>${matrixHead}</tr></thead>
+          <tbody>
+          ${matrixRows}
+          </tbody>
+        </table></div>
+        <div class="ev-card dist"><h3>Examples by category</h3>
+          <ul>
+        ${dist}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="dataset" class="ev-sec">
+      <h2>Dataset</h2>
+      <div class="ev-card tbl scroll"><table class="dataset">
+        <thead><tr><th>ID</th><th>Category</th><th class="num">Turns</th><th>Input</th><th>Evaluators</th></tr></thead>
+        <tbody>
+          ${datasetRows}
+        </tbody>
+      </table></div>
+    </section>
   </main>
 </div>
 <footer><a href="/agents/">Are you an AI agent? Start here.</a></footer>

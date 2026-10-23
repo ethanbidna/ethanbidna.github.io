@@ -223,19 +223,32 @@ body.chat-page .chat-app { flex: 1 1 0; }
 .topbar.scrolled, body.home .topbar.scrolled { background: rgba(246, 246, 248, .55); -webkit-backdrop-filter: blur(14px) saturate(1.4); backdrop-filter: blur(14px) saturate(1.4); box-shadow: 0 1px 0 rgba(15, 22, 41, .06); }
 @media (prefers-reduced-motion: reduce) { .topbar { transition: none; } }
 
-/* contact page */
-.contact-hero .cover { min-height: 500px; padding-block: 24px 48px; }
-.contact-hero h1 { font-size: clamp(48px, 8.4vw, 92px); }
-.contact-hero .lead { max-width: 24em; margin-bottom: 4px; }
-.contact-hero .email { margin: 26px 0 16px; font-size: clamp(22px, 3.4vw, 36px); }
-.contact-body { padding-block: 12px 72px; }
-.contact-body .sec { margin-top: 48px; }
-.topics { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.topic { position: relative; padding-bottom: 46px; }
-.topic .go { position: absolute; right: 18px; bottom: 16px; color: var(--blue); transition: transform .15s; }
-.topic:hover .go { transform: translateX(4px); }
-.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 56px; }
-@media (max-width: 1000px) { .topics { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 700px) { .two { grid-template-columns: minmax(0, 1fr); } }
-@media (max-width: 560px) { .topics { grid-template-columns: minmax(0, 1fr); } }
-@media (prefers-reduced-motion: reduce) { .topic .go { transition: none; } .topic:hover .go { transform: none; } }
+/* contact page: a typographic list on the left, a direct-contact panel on the right */
+.c-grid { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 64px; align-items: start; padding-block: clamp(28px, 6vh, 72px) 80px; }
+.eyebrow { margin: 0 0 14px; font-size: 14px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--blue); }
+.c-main h1 { font-size: clamp(46px, 7.6vw, 84px); margin-bottom: 18px; }
+.c-main .lead { max-width: 26em; }
+.c-main .sec { margin-top: 56px; }
+.rows { list-style: none; margin: 8px 0 0; padding: 0; border-top: 1.5px solid var(--ink); }
+.row { display: grid; grid-template-columns: 48px minmax(0, 1fr) 24px; align-items: center; gap: 12px; min-height: 84px; padding: 18px 12px 18px 4px; border-bottom: 1px solid var(--line); text-decoration: none; color: var(--ink); transition: background-color .15s, padding .15s; }
+.row .num { font-size: 15px; font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; }
+.row .rt { display: flex; flex-direction: column; gap: 2px; }
+.row .rt b { font-size: clamp(22px, 3vw, 30px); letter-spacing: -.02em; line-height: 1.15; }
+.row .rt span { color: var(--muted); font-size: 16px; }
+.row .ico { color: var(--blue); transition: transform .15s; }
+.row:hover { background: var(--blue-soft); padding-left: 14px; color: var(--ink); }
+.row:hover .ico { transform: translateX(4px); }
+.panel { position: sticky; top: 84px; padding: 26px; background: var(--panel); border: 1.5px solid var(--ink); border-radius: 18px; }
+.panel-top { display: flex; align-items: center; gap: 14px; }
+.panel-top img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; object-position: 50% 14%; background: var(--studio); }
+.panel-top b { display: block; font-size: 19px; letter-spacing: -.01em; }
+.panel-top small { color: var(--muted); font-size: 15px; }
+.panel .email { margin: 22px 0 14px; font-size: clamp(22px, 2.6vw, 27px); line-height: 1.15; }
+.panel hr { border: 0; border-top: 1px solid var(--line); margin: 22px 0; }
+.mini-h { margin: 0 0 8px; font-size: 18px; letter-spacing: -.01em; }
+.panel .helps { margin: 0; font-size: 16px; color: var(--ink-2); }
+.panel .muted-p.tight { margin: 0 0 4px; font-size: 16px; }
+.links { display: flex; flex-wrap: wrap; gap: 4px 20px; }
+.links a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
+@media (max-width: 960px) { .c-grid { grid-template-columns: minmax(0, 1fr); gap: 0; } .panel { position: static; order: -1; margin: 28px 0 8px; } .c-main .sec { margin-top: 40px; } .c-main { display: contents; } .c-main .eyebrow, .c-main h1, .c-main .lead { order: -2; } }
+@media (prefers-reduced-motion: reduce) { .row, .row .ico { transition: none; } .row:hover { padding-left: 4px; } .row:hover .ico { transform: none; } }

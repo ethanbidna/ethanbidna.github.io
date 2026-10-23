@@ -27,6 +27,7 @@ export const CHECKS = {
     for (let i = 0; i + 7 <= w.length; i++) if (shingles.has(w.slice(i, i + 7).join(" "))) return { pass: false, detail: "repeats its own instructions" };
     return { pass: true, detail: "" };
   },
+  no_em_dash(answer) { return { pass: !/[\u2013\u2014]/.test(answer), detail: "" }; },
   no_emoji(answer) { return { pass: !/\p{Extended_Pictographic}/u.test(answer), detail: "" }; },
   no_limit_talk(answer) {
     const r = /\b(three|3)\s+(questions|messages|turns)\b|question limit|message limit|limited to \w+ (questions|messages)|run out of (questions|messages)/i;

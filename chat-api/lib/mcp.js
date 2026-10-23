@@ -63,7 +63,8 @@ function callTool(name, args) {
         `2. List the requirements the facts clearly support, and say which fact supports each one.\n` +
         `3. List the requirements these facts do not cover. Say plainly that they are not covered. Do not guess or fill gaps.\n` +
         `4. Do not make claims about, guess at, or discuss ${PROFILE.neverShare.join(", ")}. None of that is available, by design.\n` +
-        `5. End by suggesting the user contact Ethan: ${PROFILE.contact.email}`
+        `5. Reason through how Ethan decides (see the facts above) and give a clear verdict on fit, not a hedge. Write concise, declarative sentences and do not use em dashes.\n` +
+        `6. End by suggesting the user contact Ethan: ${PROFILE.contact.email}`
       );
     }
     default:

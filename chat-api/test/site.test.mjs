@@ -38,6 +38,8 @@ assert.equal(read("agents.txt"), read(".well-known/agents.txt"), "agents.txt cop
   const cases = JSON.parse(read("chat-api/evals/cases.json"));
   const { CODE_CRITERIA, JUDGE_CRITERIA } = await import("../evals/criteria.mjs");
   const ask = read("ask/index.html");
+  const agentsPage = read("agents/index.html");
+  assert.match(agentsPage, new RegExp(`${cases.length} test conversations and ${Object.keys(CODE_CRITERIA).length + Object.keys(JUDGE_CRITERIA).length} pass/fail checks`), "Agents page counts are stale");
   assert.match(ask, new RegExp(`${cases.length} test conversations`), "Ask page conversation count is stale");
   assert.match(ask, new RegExp(`and ${Object.keys(CODE_CRITERIA).length + Object.keys(JUDGE_CRITERIA).length} checks`), "Ask page check count is stale");
 }

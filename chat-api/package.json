@@ -1,0 +1,21 @@
+{
+  "name": "ethanbidna-chat",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Small serverless endpoint for the Ask Ethan assistant on ethanbidna.com",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node test/handler.test.mjs && node test/mcp.test.mjs && node test/evals.test.mjs && node test/openrouter.test.mjs && node test/site.test.mjs && node test/worker.test.mjs",
+    "evals:fixtures": "node evals/run.mjs --source=fixtures --judge=mock",
+    "evals:live": "node evals/run.mjs --source=live --judge=live"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.1.0"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.1"
+  }
+}

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-EQdUcZjUdR4U0x6q7T7L1zQoYZBe8UPB7eq/kth/Cb8=' 'sha256-xnnHNEQ7AmPHPitOfE1PU0jIGCufz7Zcn45QbhDy0VY='; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<script id="frame-guard">if (window.top !== window.self) { window.top.location = window.self.location; }</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ask me anything | Ethan Bidna</title>
+<meta name="description" content="Ask Ethan Bidna anything about his work in AI product management and enablement. An AI assistant trained on his work answers.">
+<link rel="canonical" href="https://www.ethanbidna.com/ask/">
+<meta name="theme-color" content="#adacb0">
+<meta name="author" content="Ethan S. Bidna">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="alternate" type="text/plain" href="/.well-known/agents.txt" title="agents.txt">
+<link rel="alternate" type="text/plain" href="/llms.txt" title="Summary for AI agents">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ethan Bidna">
+<meta property="og:title" content="Ask me anything | Ethan Bidna">
+<meta property="og:description" content="Ask Ethan Bidna anything about his work in AI product management and enablement. An AI assistant trained on his work answers.">
+<meta property="og:url" content="https://www.ethanbidna.com/ask/">
+<meta property="og:image" content="https://www.ethanbidna.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ethan Bidna. AI product management and enablement.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ask me anything | Ethan Bidna">
+<meta name="twitter:description" content="Ask Ethan Bidna anything about his work in AI product management and enablement. An AI assistant trained on his work answers.">
+<meta name="twitter:image" content="https://www.ethanbidna.com/og.png">
+
+
+<link rel="preload" href="/fonts/bricolage-latin-opsz.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/site.css">
+</head>
+<body class="chat-page">
+<div class="topbar"><div class="wrap"><header class="bar"><a class="wordmark" href="/">Ethan Bidna</a><nav aria-label="Primary"><a href="/ask/" id="nav-clone" aria-current="page"><span class="long">Ask me anything</span><span class="short">Ask me</span></a><a href="/mcp/">Ethan MCP</a><a href="/contact/">Contact</a></nav></header></div></div>
+<div class="chat-app" id="ask-app" data-endpoint="/api/chat">
+  <header class="chat-top">
+    <div class="who"><div class="mini"><img src="/img/ethan.jpg" alt="Ethan Bidna" width="88" height="88"></div><div><b>Ethan Bidna</b><small>AI assistant trained on my work</small></div></div>
+    <a class="evals-pill" href="/evals/" aria-label="See the evals used to test this agent: 67 test conversations and 16 checks"><span class="long">See the evals used to test this agent</span><span class="short">See the evals</span><svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </header>
+  <main class="chat-main">
+  <h1 class="sr-only">Ask me anything</h1>
+
+  <div class="empty" id="offline">
+    <div class="big"><img src="/img/ethan.jpg" alt="" width="184" height="184"></div>
+    <p class="empty-title" aria-hidden="true">Ask me anything</p>
+    <p>This is not online yet. In the meantime, let's talk directly.</p>
+    <a class="btn primary" href="/contact/">Let's build together <svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </div>
+
+  <div class="live" id="live" hidden>
+    <div class="log" id="log" aria-live="polite">
+      <div class="empty" id="empty">
+        <div class="big"><img src="/img/ethan.jpg" alt="" width="184" height="184"></div>
+        <p class="empty-title" aria-hidden="true">Ask me anything</p>
+        <p>About my work, my background, or how we could work together.</p>
+        <div class="suggest" id="suggest"></div>
+      </div>
+    </div>
+    <div class="composer">
+      <form class="form" id="form" autocomplete="off">
+        <input id="q" type="text" maxlength="300" placeholder="Message Ethan" aria-label="Your message">
+        <button class="send" id="send" type="submit" aria-label="Send"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 16V4M5 9l5-5 5 5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </form>
+      <p class="fine">Replies are AI-generated from a short brief about my work and can be wrong. For anything that matters, <a href="/contact/">contact me directly</a>. Conversations are not saved on this site. <a id="ask-evals" href="/evals/">How it's tested.</a></p>
+    </div>
+  </div>
+  </main>
+</div>
+<script>
+(function () {
+  var root = document.getElementById("ask-app"), endpoint = root.getAttribute("data-endpoint");
+  if (!endpoint) return;
+  document.getElementById("offline").hidden = true; document.getElementById("live").hidden = false;
+
+  var EMAIL = "ethansbidna@gmail.com", MAX = 3;
+  var log = document.getElementById("log"), form = document.getElementById("form"), input = document.getElementById("q");
+  var send = document.getElementById("send"), suggest = document.getElementById("suggest"), empty = document.getElementById("empty");
+  var ARROW = '<svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var msgs = [], busy = false, done = false;
+
+  function turn(role, text) {
+    var row = document.createElement("div"); row.className = "turn " + role;
+    if (role === "bot") { var m = document.createElement("div"); m.className = "mini"; var im = document.createElement("img"); im.src = "/img/ethan.jpg"; im.alt = ""; im.width = 64; im.height = 64; m.appendChild(im); row.appendChild(m); }
+    var d = document.createElement("div"); d.className = "msg " + role; d.textContent = text; row.appendChild(d);
+    log.appendChild(row); log.scrollTop = log.scrollHeight; return d;
+  }
+  function mailto() {
+    var t = msgs.map(function (m) { return (m.role === "user" ? "Me: " : "Assistant: ") + m.content; }).join("\n\n");
+    var body = "Hi Ethan,\n\nI was chatting with the assistant on your site and would like to continue with you.\n\n" + t.slice(0, 1400);
+    return "mailto:" + EMAIL + "?subject=" + encodeURIComponent("Continuing from Ask me anything") + "&body=" + encodeURIComponent(body);
+  }
+  function closing(text) {
+    done = true; input.disabled = send.disabled = true; input.placeholder = "Continue with the real me";
+    var d = document.createElement("div"); d.className = "msg note"; d.textContent = text;
+    var row = document.createElement("div"); row.className = "actions";
+    var a = document.createElement("a"); a.href = "/contact/"; a.className = "btn primary"; a.innerHTML = "Let's build together " + ARROW;
+    var b = document.createElement("a"); b.href = mailto(); b.className = "btn"; b.textContent = "Email me this conversation";
+    row.appendChild(a); row.appendChild(b); d.appendChild(row); log.appendChild(d); log.scrollTop = log.scrollHeight;
+  }
+  async function ask(text) {
+    text = text.trim(); if (!text || busy || done) return;
+    busy = true; send.disabled = true; empty.hidden = true;
+    turn("you", text); msgs.push({ role: "user", content: text }); input.value = "";
+    var wait = turn("bot", "\u2026");
+    try {
+      var res = await fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ messages: msgs }) });
+      if (!res.ok) throw new Error(String(res.status));
+      var data = await res.json();
+      wait.textContent = data.reply; msgs.push({ role: "assistant", content: data.reply });
+      if (msgs.filter(function (m) { return m.role === "user"; }).length >= MAX) closing("Want to keep going? The real me is a message away.");
+    } catch (e) {
+      wait.parentNode.remove(); msgs.pop();
+      closing("I have to step away for a moment. The real me is easy to reach.");
+    } finally { busy = false; if (!done) { send.disabled = false; input.focus({ preventScroll: true }); } }
+  }
+  form.addEventListener("submit", function (e) { e.preventDefault(); ask(input.value); });
+  ["What do you do?", "What is your background?", "How could we work together?"].forEach(function (s) {
+    var b = document.createElement("button"); b.type = "button"; b.textContent = s; b.addEventListener("click", function () { ask(s); }); suggest.appendChild(b);
+  });
+  var q = new URLSearchParams(location.search).get("q");
+  if (q) { history.replaceState(null, "", location.pathname); ask(q.slice(0, 300)); }
+})();
+</script>
+</body>
+</html>

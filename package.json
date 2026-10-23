@@ -1,0 +1,22 @@
+{
+  "name": "ethanbidna-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "ethanbidna.com: static pages plus the chat and MCP functions, deployed together on Cloudflare",
+  "engines": {
+    "node": "22.x"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.1.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.152.0"
+  },
+  "scripts": {
+    "build": "node scripts/build-site.mjs",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "cd chat-api && npm test"
+  }
+}

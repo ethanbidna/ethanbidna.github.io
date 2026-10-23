@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-EQdUcZjUdR4U0x6q7T7L1zQoYZBe8UPB7eq/kth/Cb8=' 'sha256-9uE38oC5T4TbcJq9sGYDC2/8Id0KcdzaU1y4vOzp6ow='; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<script id="frame-guard">if (window.top !== window.self) { window.top.location = window.self.location; }</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ethan MCP | Ethan Bidna</title>
+<meta name="description" content="Connect your AI tool to Ethan Bidna\'s public MCP server and ask it about his professional work.">
+<link rel="canonical" href="https://www.ethanbidna.com/mcp/">
+<meta name="theme-color" content="#adacb0">
+<meta name="author" content="Ethan S. Bidna">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="alternate" type="text/plain" href="/.well-known/agents.txt" title="agents.txt">
+<link rel="alternate" type="text/plain" href="/llms.txt" title="Summary for AI agents">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ethan Bidna">
+<meta property="og:title" content="Ethan MCP | Ethan Bidna">
+<meta property="og:description" content="Connect your AI tool to Ethan Bidna's public MCP server and ask it about his professional work.">
+<meta property="og:url" content="https://www.ethanbidna.com/mcp/">
+<meta property="og:image" content="https://www.ethanbidna.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ethan Bidna. AI product management and enablement.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ethan MCP | Ethan Bidna">
+<meta name="twitter:description" content="Connect your AI tool to Ethan Bidna's public MCP server and ask it about his professional work.">
+<meta name="twitter:image" content="https://www.ethanbidna.com/og.png">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://www.ethanbidna.com/mcp/#page",
+  "url": "https://www.ethanbidna.com/mcp/",
+  "name": "Ethan MCP",
+  "about": { "@id": "https://www.ethanbidna.com/#person" },
+  "isPartOf": { "@id": "https://www.ethanbidna.com/#website" }
+}
+</script>
+<link rel="preload" href="/fonts/bricolage-latin-opsz.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/site.css">
+</head>
+<body>
+<div class="topbar"><div class="wrap"><header class="bar"><a class="wordmark" href="/">Ethan Bidna</a><nav aria-label="Primary"><a href="/ask/" id="nav-clone"><span class="long">Ask me anything</span><span class="short">Ask me</span></a><a href="/mcp/" aria-current="page">Ethan MCP</a><a href="/contact/">Contact</a></nav></header></div></div>
+<div class="wrap">
+    <main class="page">
+    <h1>Ethan MCP</h1>
+    <p class="lead">Connect your AI tool to Ethan and ask it about his work.</p>
+
+    <h2 class="sec">Server address</h2>
+    <div class="copyrow"><code id="url">https://www.ethanbidna.com/api/mcp</code><button class="btn" type="button" data-copy="url">Copy</button></div>
+
+    <h2 class="sec">Connect</h2>
+    <h3 class="sub3">Claude Code</h3>
+    <div class="copyrow"><code id="cmd">claude mcp add --transport http ethan-bidna https://www.ethanbidna.com/api/mcp</code><button class="btn" type="button" data-copy="cmd">Copy</button></div>
+    <h3 class="sub3">Claude, ChatGPT and other tools</h3>
+    <p>Open your tool's settings, add a custom connector (or remote MCP server), and paste the address above. No sign-in is needed.</p>
+
+    <h2 class="sec">What it can do</h2>
+    <ul class="helps">
+      <li><b>Profile and background:</b> who Ethan is and what he works on.</li>
+      <li><b>Contact:</b> how to reach him.</li>
+      <li><b>Fit check:</b> paste a project brief and get an honest assessment of whether Ethan is a fit.</li>
+    </ul>
+    <p class="muted-p">Read-only, professional information only. Nothing you send is stored.</p>
+    <p aria-live="polite" class="copied" id="copied" role="status"></p>
+  </main>
+</div>
+<footer><a href="/agents/">Are you an AI agent? Start here.</a></footer>
+<script>
+(function () {
+  var note = document.getElementById("copied");
+  document.querySelectorAll("[data-copy]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var el = document.getElementById(b.getAttribute("data-copy")), t = el.textContent;
+      function ok() { note.textContent = "Copied"; setTimeout(function () { note.textContent = ""; }, 1800); }
+      function pick() { var r = document.createRange(); r.selectNodeContents(el); var s = getSelection(); s.removeAllRanges(); s.addRange(r); note.textContent = "Selected. Press copy."; }
+      if (navigator.clipboard) navigator.clipboard.writeText(t).then(ok, pick); else pick();
+    });
+  });
+})();
+</script>
+<script src="/nav.js" defer></script>
+</body>
+</html>

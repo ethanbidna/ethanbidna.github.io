@@ -1,0 +1,5 @@
+node_modules
+.vercel
+.env*
+evals/results/fixture-run.*
+evals/results/annotations-template.csv

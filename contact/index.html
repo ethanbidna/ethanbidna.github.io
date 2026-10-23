@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-EQdUcZjUdR4U0x6q7T7L1zQoYZBe8UPB7eq/kth/Cb8=' 'sha256-aNf57hD6yLCNsnmVMfCNiqfKazAcxQLsY8t4s0awA0k='; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<script id="frame-guard">if (window.top !== window.self) { window.top.location = window.self.location; }</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact Ethan Bidna | Let's get in touch</title>
+<meta name="description" content="Get in touch with Ethan Bidna, who works in AI product management and enablement.">
+<link rel="canonical" href="https://www.ethanbidna.com/contact/">
+<meta name="theme-color" content="#adacb0">
+<meta name="author" content="Ethan S. Bidna">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="alternate" type="text/plain" href="/.well-known/agents.txt" title="agents.txt">
+<link rel="alternate" type="text/plain" href="/llms.txt" title="Summary for AI agents">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ethan Bidna">
+<meta property="og:title" content="Contact Ethan Bidna | Let's get in touch">
+<meta property="og:description" content="Get in touch with Ethan Bidna, who works in AI product management and enablement.">
+<meta property="og:url" content="https://www.ethanbidna.com/contact/">
+<meta property="og:image" content="https://www.ethanbidna.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ethan Bidna. AI product management and enablement.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Contact Ethan Bidna | Let's get in touch">
+<meta name="twitter:description" content="Get in touch with Ethan Bidna, who works in AI product management and enablement.">
+<meta name="twitter:image" content="https://www.ethanbidna.com/og.png">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "@id": "https://www.ethanbidna.com/contact/#page",
+  "url": "https://www.ethanbidna.com/contact/",
+  "name": "Contact Ethan Bidna",
+  "about": { "@id": "https://www.ethanbidna.com/#person" },
+  "isPartOf": { "@id": "https://www.ethanbidna.com/#website" }
+}
+</script>
+<link rel="preload" href="/fonts/bricolage-latin-opsz.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/site.css">
+</head>
+<body>
+<div class="topbar"><div class="wrap"><header class="bar"><a class="wordmark" href="/">Ethan Bidna</a><nav aria-label="Primary"><a href="/ask/" id="nav-clone"><span class="long">Ask me anything</span><span class="short">Ask me</span></a><a href="/mcp/">Ethan MCP</a><a href="/contact/" aria-current="page">Contact</a></nav></header></div></div>
+<main id="main">
+  <div class="wrap c-grid">
+    <div class="c-text">
+      <h1>Let's get in touch.</h1>
+      <p class="email"><a href="mailto:ethansbidna@gmail.com" id="email">ethansbidna@gmail.com</a></p>
+      <div class="actions">
+        <button class="btn primary" id="copy" type="button">Copy email</button>
+        <span class="copied" id="copied" role="status"></span>
+      </div>
+    </div>
+
+    <figure class="c-photo"><img src="/img/ethan-contact.jpg" alt="Ethan Bidna, smiling, seated in an armchair" width="1000" height="1500"></figure>
+
+    <div class="c-more">
+      <h2 class="mini-h">Other ways to reach me</h2>
+      <ul class="rows">
+        <li><a class="row" href="https://www.linkedin.com/in/ethanbidna/" rel="me"><span class="rt"><b>LinkedIn</b><span>Connect or send a message.</span></span><svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+        <li><a class="row" id="to-clone" href="/ask/"><span class="rt"><b>Ask me anything</b><span>Chat with an AI assistant that knows my work.</span></span><svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+        <li><a class="row" href="/mcp/"><span class="rt"><b>Ethan MCP</b><span>Connect your own AI tool to ask about me.</span></span><svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+      </ul>
+    </div>
+  </div>
+</main>
+<footer><a href="/agents/">Are you an AI agent? Start here.</a></footer>
+<script>
+(function () {
+  var copied = document.getElementById("copied");
+  document.getElementById("copy").addEventListener("click", function () {
+    var t = document.getElementById("email").textContent;
+    function ok() { copied.textContent = "Copied"; setTimeout(function () { copied.textContent = ""; }, 1800); }
+    function fallback() { var r = document.createRange(); r.selectNodeContents(document.getElementById("email")); var s = getSelection(); s.removeAllRanges(); s.addRange(r); copied.textContent = "Selected. Press copy."; }
+    if (navigator.clipboard) navigator.clipboard.writeText(t).then(ok, fallback); else fallback();
+  });
+})();
+</script>
+<script src="/nav.js" defer></script>
+</body>
+</html>

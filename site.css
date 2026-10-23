@@ -222,3 +222,20 @@ body.chat-page .chat-app { flex: 1 1 0; }
 .topbar { transition: background-color .2s, box-shadow .2s, backdrop-filter .2s; }
 .topbar.scrolled, body.home .topbar.scrolled { background: rgba(246, 246, 248, .55); -webkit-backdrop-filter: blur(14px) saturate(1.4); backdrop-filter: blur(14px) saturate(1.4); box-shadow: 0 1px 0 rgba(15, 22, 41, .06); }
 @media (prefers-reduced-motion: reduce) { .topbar { transition: none; } }
+
+/* contact page */
+.contact-hero .cover { min-height: 500px; padding-block: 24px 48px; }
+.contact-hero h1 { font-size: clamp(48px, 8.4vw, 92px); }
+.contact-hero .lead { max-width: 24em; margin-bottom: 4px; }
+.contact-hero .email { margin: 26px 0 16px; font-size: clamp(22px, 3.4vw, 36px); }
+.contact-body { padding-block: 12px 72px; }
+.contact-body .sec { margin-top: 48px; }
+.topics { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.topic { position: relative; padding-bottom: 46px; }
+.topic .go { position: absolute; right: 18px; bottom: 16px; color: var(--blue); transition: transform .15s; }
+.topic:hover .go { transform: translateX(4px); }
+.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 56px; }
+@media (max-width: 1000px) { .topics { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 700px) { .two { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 560px) { .topics { grid-template-columns: minmax(0, 1fr); } }
+@media (prefers-reduced-motion: reduce) { .topic .go { transition: none; } .topic:hover .go { transform: none; } }

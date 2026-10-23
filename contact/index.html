@@ -12,7 +12,8 @@
 <meta name="theme-color" content="#adacb0">
 <meta name="author" content="Ethan S. Bidna">
 <meta name="robots" content="index, follow, max-image-preview:large">
-<link rel="icon" href="/favicon.ico">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="alternate" type="text/plain" href="/.well-known/agents.txt" title="agents.txt">
@@ -49,40 +50,56 @@
 </head>
 <body>
 <div class="topbar"><div class="wrap"><header class="bar"><a class="wordmark" href="/">Ethan Bidna</a><nav aria-label="Primary"><a href="/ask/" id="nav-clone"><span class="long">Ask me anything</span><span class="short">Ask me</span></a><a href="/mcp/">Ethan MCP</a><a href="/contact/" aria-current="page">Contact</a></nav></header></div></div>
-<div class="wrap">
-    <main class="page">
-    <div class="portrait-sm"><img src="/img/ethan.jpg" alt="Ethan Bidna" width="208" height="260"></div>
-    <h1>Let's build together.</h1>
-    <p class="lead">I'm not looking for a new role, but I'm always glad to compare notes on AI product work.</p>
-    <p class="email"><a href="mailto:ethansbidna@gmail.com" id="email">ethansbidna@gmail.com</a></p>
-    <div class="actions">
-      <button class="btn" id="copy" type="button">Copy email</button>
-      <span class="copied" id="copied" role="status"></span>
-    </div>
+<main id="main">
+  <div class="studio contact-hero"><div class="wrap">
+    <section class="cover" aria-label="Contact">
+      <div class="cover-text">
+        <h1>Let's build together.</h1>
+        <p class="lead">I'm not looking for a new role, but I'm always glad to compare notes on AI product work.</p>
+        <p class="email"><a href="mailto:ethansbidna@gmail.com" id="email">ethansbidna@gmail.com</a></p>
+        <div class="actions">
+          <button class="btn primary" id="copy" type="button">Copy email</button>
+          <a class="btn" href="https://www.linkedin.com/in/ethanbidna/" rel="me">LinkedIn</a>
+          <span class="copied" id="copied" role="status"></span>
+        </div>
+      </div>
+      <picture class="cover-photo">
+        <source media="(max-width: 700px)" srcset="/img/ethan-cover-m.jpg" width="800" height="1117">
+        <img src="/img/ethan-cover.jpg" srcset="/img/ethan-cover-1000.jpg 1000w, /img/ethan-cover.jpg 1600w" sizes="(min-width: 1240px) 900px, 100vw" width="1600" height="1253" alt="Portrait of Ethan Bidna">
+      </picture>
+    </section>
+  </div></div>
 
+  <div class="wrap contact-body">
     <h2 class="sec">What's it about?</h2>
     <p class="muted-p">Pick one and your email app opens with a few prompts filled in.</p>
     <ul class="topics">
-      <li><a class="topic" href="mailto:ethansbidna@gmail.com?subject=A%20conversation%20about%20AI%20product%20work&amp;body=Hi%20Ethan%2C%0A%0AI%27d%20like%20to%20compare%20notes%20on%20AI%20product%20work.%0A%0AWhat%20I%27m%20working%20on%3A%0AWhat%20I%27d%20like%20to%20talk%20about%3A%0ABest%20way%20to%20reach%20me%3A%0A"><b>A conversation</b><span>Compare notes on AI product work.</span></a></li>
-      <li><a class="topic" href="mailto:ethansbidna@gmail.com?subject=I%20want%20to%20build%20something%20together&amp;body=Hi%20Ethan%2C%0A%0AI%20have%20a%20project%20I%27d%20like%20to%20talk%20through.%0A%0AWhat%20it%20is%3A%0AWhat%20I%27m%20hoping%20for%3A%0ATimeline%3A%0ABest%20way%20to%20reach%20me%3A%0A"><b>Building</b><span>A product or idea you want to take further.</span></a></li>
-      <li><a class="topic" href="mailto:ethansbidna@gmail.com?subject=I%20want%20AI%20enablement%20for%20a%20team&amp;body=Hi%20Ethan%2C%0A%0AI%27d%20like%20to%20talk%20about%20helping%20a%20team%20put%20AI%20to%20work.%0A%0AThe%20team%20and%20what%20they%20do%3A%0AWhere%20they%20are%20with%20AI%20today%3A%0AWhat%20success%20looks%20like%3A%0ABest%20way%20to%20reach%20me%3A%0A"><b>Enablement</b><span>Helping a team put AI to work.</span></a></li>
-      <li><a class="topic" href="mailto:ethansbidna@gmail.com?subject=Something%20else&amp;body=Hi%20Ethan%2C%0A%0A"><b>Something else</b><span>A question, an introduction, anything.</span></a></li>
+      <li><a class="topic" href="mailto:ethansbidna@gmail.com?subject=A%20conversation%20about%20AI%20product%20work&amp;body=Hi%20Ethan%2C%0A%0AI%27d%20like%20to%20compare%20notes%20on%20AI%20product%20work.%0A%0AWhat%20I%27m%20working%20on%3A%0AWhat%20I%27d%20like%20to%20talk%20about%3A%0ABest%20way%20to%20reach%20me%3A%0A"><b>A conversation</b><span>Compare notes on AI product work.</span><svg class="ico go" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+      <li><a class="topic" href="mailto:ethansbidna@gmail.com?subject=I%20want%20to%20build%20something%20together&amp;body=Hi%20Ethan%2C%0A%0AI%20have%20a%20project%20I%27d%20like%20to%20talk%20through.%0A%0AWhat%20it%20is%3A%0AWhat%20I%27m%20hoping%20for%3A%0ATimeline%3A%0ABest%20way%20to%20reach%20me%3A%0A"><b>Building</b><span>A product or idea you want to take further.</span><svg class="ico go" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+      <li><a class="topic" href="mailto:ethansbidna@gmail.com?subject=I%20want%20AI%20enablement%20for%20a%20team&amp;body=Hi%20Ethan%2C%0A%0AI%27d%20like%20to%20talk%20about%20helping%20a%20team%20put%20AI%20to%20work.%0A%0AThe%20team%20and%20what%20they%20do%3A%0AWhere%20they%20are%20with%20AI%20today%3A%0AWhat%20success%20looks%20like%3A%0ABest%20way%20to%20reach%20me%3A%0A"><b>Enablement</b><span>Helping a team put AI to work.</span><svg class="ico go" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+      <li><a class="topic" href="mailto:ethansbidna@gmail.com?subject=Something%20else&amp;body=Hi%20Ethan%2C%0A%0A"><b>Something else</b><span>A question, an introduction, anything.</span><svg class="ico go" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
     </ul>
 
-    <h2 class="sec">What helps</h2>
-    <ul class="helps">
-      <li>A line or two on the project, idea or question.</li>
-      <li>Who is involved and roughly when you'd like to start.</li>
-      <li>The best way to reach you.</li>
-    </ul>
-
-    <h2 class="sec">Find me elsewhere</h2>
-    <div class="actions">
-      <a class="btn" href="https://www.linkedin.com/in/ethanbidna/" rel="me">LinkedIn</a>
-      <a class="btn" id="to-clone" href="/ask/">Ask the assistant first</a>
+    <div class="two">
+      <section>
+        <h2 class="sec">What helps</h2>
+        <ul class="helps">
+          <li>A line or two on the project, idea or question.</li>
+          <li>Who is involved and roughly when you'd like to start.</li>
+          <li>The best way to reach you.</li>
+        </ul>
+      </section>
+      <section>
+        <h2 class="sec">Not sure yet?</h2>
+        <p class="muted-p">Ask the assistant about my work first, or connect your own AI tool to my MCP server.</p>
+        <div class="actions">
+          <a class="btn" id="to-clone" href="/ask/">Ask me anything</a>
+          <a class="btn" href="/mcp/">Ethan MCP</a>
+        </div>
+      </section>
     </div>
-  </main>
-</div>
+  </div>
+</main>
 <footer><a href="/agents/">Are you an AI agent? Start here.</a></footer>
 <script>
 (function () {

@@ -241,3 +241,6 @@ body.chat-page .chat-app { flex: 1 1 0; }
 @media (max-width: 900px) { .c-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "text" "photo" "more"; } .c-photo { position: static; max-width: 440px; margin-top: 36px; } .c-more { margin-top: 36px; } }
 
 .c-text h1 { margin-bottom: 8px; }
+.c-grid { grid-template-rows: auto 1fr; }
+.c-more { align-self: start; margin-top: 32px; }
+@media (max-width: 900px) { .c-grid { grid-template-rows: none; } }

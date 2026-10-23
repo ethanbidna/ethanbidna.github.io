@@ -1,5 +1,5 @@
 // Turns the Ask me anything page on. Usage: node scripts/go-live.mjs   (the chat runs on the same site at /api/chat)
-// Run it from the repo root after the site is deployed on Vercel with the OPENROUTER_API_KEY set.
+// Run it from the repo root after the site is deployed on Cloudflare with the OPENROUTER_API_KEY secret set.
 import fs from "node:fs";
 import { execFileSync } from "node:child_process";
 const endpoint = "/api/chat";

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "ethanbidna.com: static pages plus the chat and MCP functions, deployed together on Vercel",
+  "description": "ethanbidna.com: static pages plus the chat and MCP functions, deployed together on Cloudflare",
   "engines": {
     "node": "22.x"
   },

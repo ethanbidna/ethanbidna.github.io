@@ -25,8 +25,8 @@ export const TOOLS = [
   { name: "get_background", title: "Ethan's background", description: "Everything Ethan has made public about his background, focus and interests, as a list of facts.", inputSchema: noArgs, annotations: readOnly },
   { name: "get_contact", title: "Contact Ethan", description: "How to reach Ethan: email, contact page and LinkedIn.", inputSchema: noArgs, annotations: readOnly },
   {
-    name: "assess_fit", title: "Assess fit for a role",
-    description: "Give a job posting or project brief. Returns Ethan's public facts plus instructions for writing an honest fit assessment. Nothing is sent anywhere or stored.",
+    name: "assess_fit", title: "Assess fit for a project",
+    description: "Give a project brief or a role description. Returns Ethan's public facts plus instructions for writing an honest fit assessment. Nothing is sent anywhere or stored.",
     inputSchema: { type: "object", properties: { role_description: { type: "string", description: "The job posting or project brief to compare against.", maxLength: MAX_ROLE_CHARS } }, required: ["role_description"], additionalProperties: false },
     annotations: readOnly,
   },
@@ -40,7 +40,7 @@ const RESOURCES = [
 const resourceText = { "ethan://profile": profileMarkdown, "ethan://facts": factsMarkdown, "ethan://contact": contactText };
 
 const PROMPTS = [
-  { name: "introduce_ethan", title: "Introduce Ethan", description: "A short introduction of Ethan for a hiring manager or collaborator, using only facts from these tools." },
+  { name: "introduce_ethan", title: "Introduce Ethan", description: "A short introduction of Ethan for a prospective collaborator, using only facts from these tools." },
 ];
 
 const text = (t, extra = {}) => ({ content: [{ type: "text", text: t }], ...extra });
@@ -111,7 +111,7 @@ export function handleRpc(msg) {
     case "prompts/get": {
       if (params.name !== "introduce_ethan") return rpcError(id, -32602, `Unknown prompt: ${params.name}`);
       return rpcResult(id, { description: PROMPTS[0].description, messages: [{ role: "user", content: { type: "text", text:
-        "Using the Ethan Bidna tools, write a three-sentence introduction of Ethan for a hiring manager. Use only facts the tools return, and end with how to contact him." } }] });
+        "Using the Ethan Bidna tools, write a three-sentence introduction of Ethan for a prospective collaborator. Use only facts the tools return, and end with how to contact him." } }] });
     }
     default:
       return rpcError(id, -32601, `Method not found: ${method}`);

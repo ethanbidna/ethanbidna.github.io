@@ -252,3 +252,6 @@ body.chat-page .chat-app { flex: 1 1 0; }
 .links a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
 @media (max-width: 960px) { .c-grid { grid-template-columns: minmax(0, 1fr); gap: 0; } .panel { position: static; order: -1; margin: 28px 0 8px; } .c-main .sec { margin-top: 40px; } .c-main { display: contents; } .c-main .eyebrow, .c-main h1, .c-main .lead { order: -2; } }
 @media (prefers-reduced-motion: reduce) { .row, .row .ico { transition: none; } .row:hover { padding-left: 4px; } .row:hover .ico { transform: none; } }
+
+.panel-photo { display: block; width: 100%; height: auto; aspect-ratio: 5 / 4; object-fit: cover; object-position: 50% 30%; border-radius: 12px; margin-bottom: 18px; background: var(--studio); }
+@media (max-width: 960px) { .panel-photo { aspect-ratio: 16 / 10; object-position: 50% 28%; } }

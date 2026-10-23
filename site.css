@@ -206,17 +206,13 @@ body.chat-page .topbar { flex: none; margin-inline: 0; padding-inline: max(20px,
 body.chat-page .chat-app { flex: 1 1 0; }
 @media (max-width: 520px) { .bar nav .long { display: none; } .bar nav .short { display: inline; } .bar nav { gap: 4px 16px; } .bar { flex-wrap: nowrap; } .wordmark { font-size: 17px; } .bar nav a { font-size: 16px; } }
 
-/* ask page: show the evals up front */
-.proof { display: flex; flex-direction: column; gap: 10px; margin: 26px auto 0; max-width: 520px; padding: 18px 20px; text-align: left; text-decoration: none; color: var(--ink); background: var(--panel); border: 1.5px solid var(--ink); border-radius: 14px; transition: border-color .15s, transform .15s; }
-.proof:hover { border-color: var(--blue); color: var(--ink); transform: translateY(-2px); }
-.proof-k { font-weight: 800; font-size: 19px; letter-spacing: -.01em; }
-.proof-nums { display: flex; flex-wrap: wrap; gap: 6px 22px; color: var(--ink); }
-.proof-nums b { font-size: 26px; letter-spacing: -.02em; color: var(--blue); margin-right: 6px; }
-.proof-t { color: var(--muted); font-size: 15.5px; line-height: 1.45; }
-.proof-go { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; color: var(--blue); min-height: 44px; }
-.fine #ask-evals { font-weight: 600; }
-@media (prefers-reduced-motion: reduce) { .proof { transition: none; } .proof:hover { transform: none; } }
-.empty { padding-block: 14px 24px; }
-.empty .big { width: 80px; margin-bottom: 12px; }
-.empty p:not(.empty-title) { margin-bottom: 14px; }
-.proof { margin-top: 18px; gap: 8px; padding: 16px 20px 6px; }
+
+/* ask page: the evals sit opposite the name and photo */
+.chat-top { justify-content: space-between; }
+.evals-pill { display: inline-flex; align-items: center; gap: 10px; margin-left: auto; min-height: 44px; padding: 6px 14px; text-decoration: none; color: var(--ink); background: var(--panel); border: 1.5px solid var(--ink); border-radius: 999px; font-size: 14.5px; line-height: 1.2; white-space: nowrap; transition: border-color .15s, color .15s; }
+.evals-pill b { font-weight: 800; letter-spacing: -.01em; }
+.evals-pill .meta { color: var(--muted); }
+.evals-pill .meta span { font-weight: 700; color: var(--blue); }
+.evals-pill:hover { border-color: var(--blue); color: var(--blue); }
+@media (max-width: 640px) { .evals-pill .meta { display: none; } .evals-pill { padding-inline: 12px; } }
+@media (prefers-reduced-motion: reduce) { .evals-pill { transition: none; } }

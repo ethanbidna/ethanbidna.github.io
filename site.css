@@ -195,3 +195,13 @@ footer a { color: inherit; }
 .copyrow { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 10px 0 4px; }
 .copyrow code { flex: 1 1 320px; padding: 14px 16px; font-size: 15px; border: 1.5px solid var(--line); background: var(--panel); border-radius: 10px; }
 .sub3 { margin: 26px 0 4px; font-size: 19px; letter-spacing: -.01em; }
+
+/* navbar stays on screen on every page */
+.topbar { position: sticky; top: 0; z-index: 60; background: var(--paper); margin-inline: calc(50% - 50vw); padding-inline: calc(50vw - 50%); box-shadow: 0 1px 0 rgba(15, 22, 41, .08); }
+body.home .topbar { background: var(--studio); box-shadow: none; }
+.topbar .bar { padding-block: 6px; }
+.bar nav .short { display: none; }
+body.chat-page { flex-direction: column; }
+body.chat-page .topbar { flex: none; margin-inline: 0; padding-inline: max(20px, env(safe-area-inset-left)) max(20px, env(safe-area-inset-right)); }
+body.chat-page .chat-app { flex: 1 1 0; }
+@media (max-width: 520px) { .bar nav .long { display: none; } .bar nav .short { display: inline; } .bar nav { gap: 4px 16px; } .bar { flex-wrap: nowrap; } .wordmark { font-size: 17px; } .bar nav a { font-size: 16px; } }

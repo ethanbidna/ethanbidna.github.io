@@ -12,7 +12,7 @@ export const PROFILE = {
     linkedin: "https://www.linkedin.com/in/ethanbidna/",
   },
   summary: [
-    "Ethan Bidna is a senior product manager leading the development of AI-powered products and analytics tools. With a background spanning data science, market research, and product management, he specializes in turning ambiguous problems into practical systems that people rely on.",
+    "Ethan Bidna is a senior product manager working at the intersection of AI-powered products and analytics tools. With a background spanning data science, market research, and product management, he specializes in turning ambiguous problems into practical systems that people rely on.",
     "His work has included launching new AI-enabled products, modernizing research workflows, and leading cross-functional initiatives that connect technical capabilities with commercial outcomes. He is particularly interested in the intersection of artificial intelligence, research technology, and how organizations use data to make better decisions.",
   ],
   // Approved things to say. Positive, professional, and true to the summary above.
@@ -30,7 +30,7 @@ export const PROFILE = {
 };
 PROFILE.facts = [
   "Name: Ethan S. Bidna.",
-  "A senior product manager leading the development of AI-powered products and analytics tools.",
+  "A senior product manager working at the intersection of AI-powered products and analytics tools.",
   "Background spanning data science, market research, and product management.",
   ...PROFILE.talkingPoints,
   "Contact: ethansbidna@gmail.com, or https://www.ethanbidna.com/contact/. LinkedIn: https://www.linkedin.com/in/ethanbidna/",

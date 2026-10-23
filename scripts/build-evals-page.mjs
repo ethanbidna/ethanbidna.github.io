@@ -67,9 +67,9 @@ const html = `<!DOCTYPE html>
 <link rel="stylesheet" href="/site.css">
 </head>
 <body>
+<div class="topbar"><div class="wrap"><header class="bar"><a class="wordmark" href="/">Ethan Bidna</a><nav aria-label="Primary"><a href="/ask/" id="nav-clone"><span class="long">Ask me anything</span><span class="short">Ask me</span></a><a href="/mcp/">Ethan MCP</a><a href="/contact/">Contact</a></nav></header></div></div>
 <div class="wrap">
-  <header class="bar"><a class="wordmark" href="/">Ethan Bidna</a><nav aria-label="Primary"><a href="/ask/">Ask me anything</a><a href="/mcp/">Ethan MCP</a><a href="/contact/">Contact</a></nav></header>
-  <main class="page evals">
+    <main class="page evals">
     <h1>Evals</h1>
     <p class="lead">${cases.length} test conversations. ${codeN + judgeN} pass or fail checks.</p>
 

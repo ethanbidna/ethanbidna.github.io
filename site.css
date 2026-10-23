@@ -217,3 +217,8 @@ body.chat-page .chat-app { flex: 1 1 0; }
 .evals-pill .short { display: none; } .evals-pill { font-weight: 700; }
 @media (max-width: 760px) { .evals-pill .long { display: none; } .evals-pill .short { display: inline; } .evals-pill { padding-inline: 12px; } }
 @media (prefers-reduced-motion: reduce) { .evals-pill { transition: none; } }
+
+/* frosted, see-through navbar once scrolled */
+.topbar { transition: background-color .2s, box-shadow .2s, backdrop-filter .2s; }
+.topbar.scrolled, body.home .topbar.scrolled { background: rgba(246, 246, 248, .55); -webkit-backdrop-filter: blur(14px) saturate(1.4); backdrop-filter: blur(14px) saturate(1.4); box-shadow: 0 1px 0 rgba(15, 22, 41, .06); }
+@media (prefers-reduced-motion: reduce) { .topbar { transition: none; } }

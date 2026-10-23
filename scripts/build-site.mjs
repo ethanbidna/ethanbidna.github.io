@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
-const FILES = ["index.html", "404.html", "site.css", "favicon.ico", "og.png", "apple-touch-icon.png", "icon-192.png", "icon-512.png",
+const FILES = ["index.html", "404.html", "site.css", "nav.js", "favicon.ico", "og.png", "apple-touch-icon.png", "icon-192.png", "icon-512.png",
   "manifest.webmanifest", "robots.txt", "sitemap.xml", "llms.txt", "agents.txt", "_headers"];
 const DIRS = ["ask", "contact", "agents", "mcp", "evals", "img", "fonts", ".well-known"];
 

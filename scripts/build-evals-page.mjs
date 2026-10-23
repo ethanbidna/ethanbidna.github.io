@@ -88,6 +88,7 @@ const html = `<!DOCTYPE html>
   </main>
 </div>
 <footer><a href="/agents/">Are you an AI agent? Start here.</a></footer>
+<script src="/nav.js" defer></script>
 </body>
 </html>
 `;

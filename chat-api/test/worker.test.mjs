@@ -6,7 +6,7 @@ const post = (path, body, headers = {}) => worker.fetch(new Request(`https://www
 
 let r = await post("/api/mcp", { jsonrpc: "2.0", id: 1, method: "tools/list" });
 assert.equal(r.status, 200);
-assert.equal((await r.json()).result.tools.length, 4);
+assert.equal((await r.json()).result.tools.length, 8);
 assert.equal(r.headers.get("cache-control"), "no-store");
 
 r = await post("/api/chat", { messages: [{ role: "user", content: "Where does Ethan live?" }] }, { origin: "https://www.ethanbidna.com" });

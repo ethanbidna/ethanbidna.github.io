@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
 import handler from "../api/mcp.js";
+import { handleRpc } from "../lib/mcp.js";
 import { PROFILE } from "../lib/profile.js";
 
 // Host the handler on a real HTTP server and talk to it with the official MCP client.
@@ -25,7 +26,7 @@ assert.equal(client.getServerVersion().name, "ethan-bidna");
 assert.match(client.getInstructions(), /read-only/);
 
 const { tools } = await client.listTools();
-assert.deepEqual(tools.map((t) => t.name).sort(), ["assess_fit", "get_background", "get_contact", "get_profile"]);
+assert.deepEqual(tools.map((t) => t.name).sort(), ["approach_problem", "assess_fit", "get_background", "get_bio", "get_contact", "get_evals", "get_profile", "plan_ai_evals"]);
 assert.ok(tools.every((t) => t.annotations.readOnlyHint === true));
 
 let r = await client.callTool({ name: "get_profile", arguments: {} });
@@ -71,3 +72,20 @@ res = await fetch(url, { method: "GET" }); assert.equal(res.status, 405);
 res = await fetch(url, { method: "OPTIONS" }); assert.equal(res.status, 204); assert.equal(res.headers.get("access-control-allow-origin"), "*");
 
 server.close(); console.log("all mcp tests passed");
+
+// The newer tools do real work and stay professional.
+{
+  const call = (name, args) => handleRpc({ jsonrpc: "2.0", id: 9, method: "tools/call", params: { name, arguments: args } }).result;
+  const bio = call("get_bio", { length: "long" });
+  assert.match(bio.content[0].text, /senior product manager/);
+  assert.equal(call("get_bio", { length: "huge" }).isError, true);
+  const m = call("approach_problem", { problem: "Should we build or buy an AI search feature?" });
+  assert.match(m.content[0].text, /Alternatives: compare at least two real options/);
+  assert.match(m.content[0].text, /not Ethan's personal opinion/);
+  assert.equal(call("approach_problem", { problem: " " }).isError, true);
+  const p = call("plan_ai_evals", { feature: "A support chatbot" });
+  assert.match(p.content[0].text, /binary pass or fail/);
+  const e = call("get_evals", {});
+  assert.ok(e.structuredContent.examples >= 60 && e.structuredContent.evaluators.length >= 15);
+  for (const t of [bio, m, p, e]) assert.doesNotMatch(JSON.stringify(t), /Boston|Morning Consult|Rochester/);
+}

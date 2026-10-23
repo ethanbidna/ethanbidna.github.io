@@ -22,7 +22,7 @@ A three-question conversation is roughly a thousand tokens in and a few hundred 
 
 ## The Ethan MCP server (`api/mcp.js`)
 A read-only [Model Context Protocol](https://modelcontextprotocol.io) server on the same site, at `https://www.ethanbidna.com/api/mcp`.
-- **Tools:** `get_profile`, `get_background`, `get_contact`, and `assess_fit` (takes a job description and returns Ethan's public facts plus instructions for an honest fit assessment, which the caller's own model writes).
+- **Tools:** `get_profile`, `get_bio`, `get_background`, `get_contact`, `get_evals` (the published eval suite), and three that take your input and return a method plus instructions for the caller's own model: `assess_fit` (a project brief), `approach_problem` (a product problem, worked through the six-step decision method) and `plan_ai_evals` (an AI feature, planned with the method used to test the assistant).
 - **Resources and a prompt:** `ethan://profile`, `ethan://facts`, `ethan://contact`, and `introduce_ethan`.
 - **Costs nothing to run:** it never calls a model and holds no secrets. It only serves `lib/profile.js`, the same file the website assistant reads.
 - **Transport:** Streamable HTTP, stateless, JSON responses. Tested against the official MCP client (`npm test`).

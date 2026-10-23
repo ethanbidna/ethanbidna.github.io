@@ -44,6 +44,7 @@ jobs:
       - run: npm ci
       - run: npm run evals:live -- --yes --gate
         env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       - uses: actions/upload-artifact@v4
         if: always()

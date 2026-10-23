@@ -3,8 +3,8 @@
 These tests check the assistant that answers questions on ethanbidna.com. The method starts from the ways the assistant can fail, tests each one with a plain pass or fail, and checks every AI judge against hand-labeled answers before trusting it.
 
 ## The idea in four steps
-1. **Start from how it can fail, not from a score.** `criteria.mjs` lists ten separate failure modes (inventing facts, guessing instead of admitting ignorance, making promises for Ethan, drifting off topic, obeying instructions hidden in a message, claiming to be human, and so on). Each one is its own pass or fail test. There are no 1-to-5 scales.
-2. **Use code wherever code can decide.** Nine of the checks are plain code (`checks.mjs`): formatting, length, leaking the instructions, private data, whether it says it's an AI, whether the last answer hands off to the real Ethan. They are cheap, exact and never wrong about themselves.
+1. **Start from how it can fail, not from a score.** `criteria.mjs` lists sixteen separate checks, grouped by failure mode (inventing facts, guessing instead of admitting ignorance, making promises for Ethan, drifting off topic, obeying instructions hidden in a message, claiming to be human, and so on). Each one is its own pass or fail test. There are no 1-to-5 scales.
+2. **Use code wherever code can decide.** Eleven of the checks are plain code (`checks.mjs`): formatting, length, leaking the instructions, private data, whether it says it's an AI, whether the last answer hands off to the real Ethan. They are cheap, exact and never wrong about themselves.
 3. **Use an AI judge only for what code can't decide.** Five failure modes need judgment (`judge.mjs`). Each gets its own judge with one narrow question, a short written critique before the verdict, and worked examples taken from the hand-labeled **train** split.
 4. **Don't trust a judge until it has been checked against human labels.** `labeled.json` holds 80 hand-labeled answers (16 per judge: 4 train, 12 test, evenly balanced). Each judge is run on the 12 test items. We report its true-positive rate and true-negative rate (`metrics.mjs`). A judge is trusted only if both are at least 80%. For trusted judges the pass rate is corrected for the judge's own error rate and shown with a bootstrap interval.
 
@@ -13,7 +13,7 @@ These tests check the assistant that answers questions on ethanbidna.com. The me
 |---|---|
 | `cases.json` | 67 test conversations in 9 categories, including adversarial and multi-turn ones |
 | `criteria.mjs` | The failure modes, which categories each applies to, thresholds, and the version-0 failure taxonomy |
-| `checks.mjs` | The nine code checks |
+| `checks.mjs` | The eleven code checks |
 | `judge.mjs` | The binary LLM judge: prompt, parsing, runner |
 | `labeled.json` | Human-labeled answers used to validate the judges |
 | `metrics.mjs` | Confusion matrix, TPR/TNR, F1, corrected pass rate, bootstrap interval |

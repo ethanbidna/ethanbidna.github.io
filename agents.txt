@@ -56,7 +56,7 @@ Privacy-Decline: location, address, phone, age, family, relationships, friends, 
 
 # Tools
 Assistant: https://www.ethanbidna.com/ask/ (an AI assistant that only discusses Ethan's professional strengths)
-MCP: https://www.ethanbidna.com/api/mcp (read-only; tools: get_profile, get_background, get_contact, assess_fit; no personal information)
+MCP: https://www.ethanbidna.com/api/mcp (setup: https://www.ethanbidna.com/mcp/) (read-only; tools: get_profile, get_background, get_contact, assess_fit; no personal information)
 Evals: https://www.ethanbidna.com/evals/ (how the assistant is tested)
 
 # Automated traffic

@@ -12,7 +12,7 @@ let origin = "";
 if (arg) { try { origin = new URL(arg).origin; } catch { console.error("Give an https origin like https://your-app.vercel.app"); process.exit(1); } }
 if (origin && !origin.startsWith("https://")) { console.error("Origin must be https"); process.exit(1); }
 
-const pages = ["index.html", "ask/index.html", "contact/index.html", "agents/index.html", "evals/index.html", "404.html"];
+const pages = ["index.html", "ask/index.html", "contact/index.html", "agents/index.html", "mcp/index.html", "evals/index.html", "404.html"];
 export function policyFor(html, endpointOrigin) {
   const hashes = [...html.matchAll(/<script(?![^>]*\bsrc=)(?![^>]*type="application\/ld\+json")[^>]*>([\s\S]*?)<\/script>/g)]
     .map((m) => `'sha256-${crypto.createHash("sha256").update(m[1]).digest("base64")}'`);

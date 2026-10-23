@@ -5,7 +5,7 @@ import assert from "node:assert/strict";
 
 const root = path.resolve(import.meta.dirname, "..", "..");
 const read = (f) => fs.readFileSync(path.join(root, f), "utf8");
-const pages = ["index.html", "ask/index.html", "contact/index.html", "agents/index.html", "evals/index.html", "404.html"];
+const pages = ["index.html", "ask/index.html", "contact/index.html", "agents/index.html", "mcp/index.html", "evals/index.html", "404.html"];
 
 for (const f of pages) {
   const html = read(f);

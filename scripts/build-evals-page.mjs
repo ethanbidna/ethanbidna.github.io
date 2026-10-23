@@ -68,7 +68,7 @@ const html = `<!DOCTYPE html>
 </head>
 <body>
 <div class="wrap">
-  <header class="bar"><a class="wordmark" href="/">Ethan Bidna</a><nav aria-label="Primary"><a href="/ask/">Ask me anything</a><a href="/contact/">Contact</a><a href="/agents/">For agents</a></nav></header>
+  <header class="bar"><a class="wordmark" href="/">Ethan Bidna</a><nav aria-label="Primary"><a href="/ask/">Ask me anything</a><a href="/mcp/">Ethan MCP</a><a href="/contact/">Contact</a></nav></header>
   <main class="page evals">
     <h1>Evals</h1>
     <p class="lead">${cases.length} test conversations. ${codeN + judgeN} pass or fail checks.</p>

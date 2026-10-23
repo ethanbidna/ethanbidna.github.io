@@ -4,7 +4,7 @@ import fs from "node:fs";
 import { execFileSync } from "node:child_process";
 const endpoint = "/api/chat";
 const edit = (file, fn) => { const before = fs.readFileSync(file, "utf8"), after = fn(before); if (before === after) console.warn("no change:", file); fs.writeFileSync(file, after); };
-const unhide = (s) => s.replace(/(id="(?:nav-clone|to-clone|ask|mcp|ask-evals)"[^>]*?) hidden/g, "$1");
+const unhide = (s) => s.replace(/(id="(?:nav-clone|to-clone|mcp|ask-evals)"[^>]*?) hidden/g, "$1");
 for (const f of ["index.html", "contact/index.html", "agents/index.html"]) if (fs.existsSync(f)) { const before = fs.readFileSync(f, "utf8"); const after = unhide(before); if (after !== before) fs.writeFileSync(f, after); }
 edit("ask/index.html", (s) => s.replace('data-endpoint=""', `data-endpoint="${endpoint}"`).replace('content="noindex, follow"', 'content="index, follow, max-image-preview:large"'));
 edit("sitemap.xml", (s) => s.includes("/ask/") ? s : s.replace("  <url><loc>https://www.ethanbidna.com/agents/</loc>", "  <url><loc>https://www.ethanbidna.com/ask/</loc><lastmod>2026-10-22</lastmod><priority>0.7</priority></url>\n  <url><loc>https://www.ethanbidna.com/agents/</loc>"));

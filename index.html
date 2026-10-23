@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-EQdUcZjUdR4U0x6q7T7L1zQoYZBe8UPB7eq/kth/Cb8=' 'sha256-y8mjKXaglNTvL4vPBHcNVb3A8rHzrFYvYzhocsW9ALQ='; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-EQdUcZjUdR4U0x6q7T7L1zQoYZBe8UPB7eq/kth/Cb8=' 'sha256-yRk2yaCvWRs2ZoHQa5dn28S6kXPmyqpwYM5VEnZTasQ='; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <script id="frame-guard">if (window.top !== window.self) { window.top.location = window.self.location; }</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -110,27 +110,92 @@
 <footer><a href="/agents/">Are you an AI agent? Start here.</a></footer>
 <script>
 (function () {
-  var band = document.querySelector(".studio");
-  if (!band || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  var HOME = { x: 30, y: 26 }, x = HOME.x, y = HOME.y, tx = x, ty = y, raf = 0;
-  function paint() { band.style.setProperty("--lx", x.toFixed(2) + "%"); band.style.setProperty("--ly", y.toFixed(2) + "%"); }
+  /* The eyes in the portrait follow the pointer. Positions are measured on the 1600x1253 landscape photo
+     and mapped to the phone crop. Each eye is redrawn on a canvas: the sclera is repainted and the iris moves. */
+  var pic = document.querySelector(".cover-photo"), img = pic && pic.querySelector("img");
+  if (!img || !pic.getContext && !document.createElement("canvas").getContext) return;
+  var EYES = [
+    { x: 710.5, y: 457, l: [684, 461], r: [741, 461], up: 431, dn: 472 },
+    { x: 851.5, y: 454.5, l: [816, 462], r: [884, 460], up: 428, dn: 472 }
+  ];
+  var D = { w: 1600, h: 1253 }, M = { w: 800, h: 1117, ax: 327.8, ay: 369.4, k: 0.9395 }, IRIS = 12.5, REACH = { x: 5.5, y: 2 };
+  var cv = document.createElement("canvas"); cv.className = "eyes"; cv.setAttribute("aria-hidden", "true"); pic.appendChild(cv);
+  var ctx = cv.getContext("2d"), still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var gx = 0, gy = 0, tx = 0, ty = 0, raf = 0, geo = null, bmp = null, bmpSrc = "";
+  /* srcset images report a density-corrected naturalWidth, so read real pixels from a plain copy */
+  function bitmap() {
+    var u = img.currentSrc || img.src;
+    if (u !== bmpSrc) { bmpSrc = u; bmp = new Image(); bmp.onload = function () { draw(); }; bmp.src = u; }
+    return bmp.complete && bmp.naturalWidth ? bmp : null;
+  }
+
+  function layout() {
+    var nw = img.naturalWidth, nh = img.naturalHeight; if (!nw) return null;
+    var phone = /-m\./.test(img.currentSrc || img.src), ref = phone ? M : D;
+    var pr = pic.getBoundingClientRect(), ir = img.getBoundingClientRect(), dpr = Math.min(2, window.devicePixelRatio || 1);
+    var w = Math.round(pr.width * dpr), h = Math.round(pr.height * dpr);
+    if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; }
+    var s = Math.max(ir.width / nw, ir.height / nh), dw = nw * s, dh = nh * s;
+    var pos = (getComputedStyle(img).objectPosition || "50% 50%").split(" ").map(function (v) { return parseFloat(v) / 100; });
+    var ox = ir.left - pr.left + (ir.width - dw) * (isNaN(pos[0]) ? .5 : pos[0]);
+    var oy = ir.top - pr.top + (ir.height - dh) * (isNaN(pos[1]) ? .5 : pos[1]);
+    var nat = nw / ref.w;                                        /* natural pixels per reference pixel */
+    function map(x, y) {                                          /* desktop reference coords -> reference image coords */
+      return phone ? [M.ax + (x - EYES[0].x) * M.k, M.ay + (y - EYES[0].y) * M.k] : [x, y];
+    }
+    var k = (phone ? M.k : 1) * nat * s * dpr;                    /* canvas pixels per desktop reference pixel */
+    return { phone: phone, nat: nat, s: s, ox: ox, oy: oy, dpr: dpr, map: map, k: k, nw: nw };
+  }
+  function toCanvas(g, x, y) { var m = g.map(x, y); return [(g.ox + m[0] * g.nat * g.s) * g.dpr, (g.oy + m[1] * g.nat * g.s) * g.dpr]; }
+
+  function draw() {
+    var g = geo = layout(), bm = g && bitmap(); if (!g || !bm) return;
+    var bnat = bm.naturalWidth / (g.phone ? M.w : D.w);
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    EYES.forEach(function (e) {
+      var c = toCanvas(g, e.x, e.y), L = toCanvas(g, e.l[0], e.l[1]), R = toCanvas(g, e.r[0], e.r[1]);
+      var up = toCanvas(g, (e.l[0] + e.r[0]) / 2, e.up), dn = toCanvas(g, (e.l[0] + e.r[0]) / 2, e.dn);
+      var k = g.k, ir = IRIS * k;
+      ctx.save();
+      ctx.beginPath(); ctx.moveTo(L[0], L[1]); ctx.quadraticCurveTo(up[0], up[1], R[0], R[1]); ctx.quadraticCurveTo(dn[0], dn[1], L[0], L[1]); ctx.closePath(); ctx.clip();
+      /* sclera */
+      var mx = (L[0] + R[0]) / 2, my = (L[1] + R[1]) / 2, gr = ctx.createRadialGradient(c[0], c[1], ir * .6, mx, my, (R[0] - L[0]) / 2);
+      gr.addColorStop(0, "rgb(194,189,193)"); gr.addColorStop(.7, "rgb(170,158,162)"); gr.addColorStop(1, "rgb(135,108,108)");
+      ctx.fillStyle = gr; ctx.fillRect(0, 0, cv.width, cv.height);
+      /* iris, copied from the photo and moved */
+      var r0 = IRIS * bnat * (g.phone ? M.k : 1);
+      var m = g.map(e.x, e.y), px = m[0] * bnat, py = m[1] * bnat, d = r0 * 2 + 4, sp = document.createElement("canvas");
+      var out = Math.ceil(ir * 2 + 6); sp.width = sp.height = out;
+      var sc = sp.getContext("2d"); sc.drawImage(bm, px - r0 - 2, py - r0 - 2, d, d, 0, 0, out, out);
+      sc.globalCompositeOperation = "destination-in";
+      var mk = sc.createRadialGradient(out / 2, out / 2, 0, out / 2, out / 2, ir); mk.addColorStop(0, "#000"); mk.addColorStop(.8, "#000"); mk.addColorStop(1, "rgba(0,0,0,0)");
+      sc.fillStyle = mk; sc.fillRect(0, 0, out, out);
+      ctx.drawImage(sp, c[0] + gx * REACH.x * k - out / 2, c[1] + gy * REACH.y * k - out / 2);
+      /* shade under the upper lid so the iris tucks beneath it */
+      var top = Math.min(up[1], L[1]), sh = ctx.createLinearGradient(0, top + (my - top) * .55, 0, my - (my - top) * .05);
+      sh = ctx.createLinearGradient(0, top + (my - top) * .15, 0, top + (my - top) * 1.25); sh.addColorStop(0, "rgba(60,35,35,.55)"); sh.addColorStop(1, "rgba(60,35,35,0)");
+      ctx.fillStyle = sh; ctx.fillRect(0, 0, cv.width, cv.height);
+      ctx.restore();
+    });
+  }
   function step() {
-    x += (tx - x) * 0.09; y += (ty - y) * 0.09; paint();
-    raf = (Math.abs(tx - x) > 0.05 || Math.abs(ty - y) > 0.05) ? requestAnimationFrame(step) : 0;
+    gx += (tx - gx) * .18; gy += (ty - gy) * .18; draw();
+    raf = (Math.abs(tx - gx) > .005 || Math.abs(ty - gy) > .005) ? requestAnimationFrame(step) : 0;
   }
-  function aim(nx, ny) { tx = nx; ty = ny; if (!raf) raf = requestAnimationFrame(step); }
-  band.addEventListener("pointermove", function (e) {
-    var r = band.getBoundingClientRect();
-    aim((e.clientX - r.left) / r.width * 100, (e.clientY - r.top) / r.height * 100);
-  }, { passive: true });
-  band.addEventListener("pointerleave", function () { aim(HOME.x, HOME.y); });
-  /* touch screens have no hover: let the light sweep down the portrait as the page scrolls */
-  if (matchMedia("(hover: none)").matches) {
-    addEventListener("scroll", function () {
-      var h = band.offsetHeight || 1, p = Math.min(1, Math.max(0, scrollY / h));
-      aim(55, 20 + p * 60);
-    }, { passive: true });
+  function look(px, py) {
+    var g = geo || layout(); if (!g) return;
+    var e = toCanvas(g, 780, 456), cx = pic.getBoundingClientRect().left + e[0] / g.dpr, cy = pic.getBoundingClientRect().top + e[1] / g.dpr;
+    var dx = px - cx, dy = py - cy, dist = Math.hypot(dx, dy) || 1, f = Math.min(1, dist / 260);
+    tx = dx / dist * f; ty = dy / dist * f;
+    if (still) { gx = tx; gy = ty; draw(); return; }
+    if (!raf) raf = requestAnimationFrame(step);
   }
+  addEventListener("pointermove", function (ev) { look(ev.clientX, ev.clientY); }, { passive: true });
+  document.addEventListener("pointerleave", function () { tx = ty = 0; if (!raf) raf = requestAnimationFrame(step); });
+  addEventListener("resize", function () { geo = null; draw(); });
+  img.addEventListener("load", function () { geo = null; draw(); });
+  if (img.complete) draw();
+  window.__eyes = { draw: draw, look: function (x, y) { gx = tx = x; gy = ty = y; draw(); } };
 })();
 </script>
 </body>

@@ -48,6 +48,18 @@ Layers, from the outside in:
 - **Free questions cost nothing.** Personal questions are answered by a fixed reply without calling the model.
 - **Extra brake.** `wrangler.jsonc` also has a Cloudflare rate-limit binding of 10 requests a minute per IP.
 
+## Running the evals without holding the model key
+
+`worker/eval-proxy.js` serves `POST /api/eval`, a locked endpoint that forwards model calls using the key already stored in Cloudflare. It does nothing (404) unless the secret `EVAL_TOKEN` is set to a long random value (24 or more characters). With a valid token it forwards only to the allowed models (the chat and judge models, plus any in `EVAL_ALLOWED_MODELS`), caps replies at 1,500 tokens, and bypasses the visitor limits and the budget pause (but not the key's real credit limit).
+
+To run the suite from anywhere:
+1. Make a token: `openssl rand -hex 24`. Add it in Cloudflare as the secret `EVAL_TOKEN`.
+2. On the machine that runs the evals: `EVAL_REMOTE_URL=https://www.ethanbidna.com/api/eval EVAL_TOKEN=<the token> npm run evals:live -- --yes`.
+3. The harness runs locally with the prompt in this repo, so prompt changes can be tried without deploying. Only the model calls go through the site.
+4. When you are done, delete the `EVAL_TOKEN` secret in Cloudflare. That turns the endpoint off again.
+
+A full run is about 200 calls. The judge model is the costly part, so for tuning set `JUDGE_MODEL=anthropic/claude-haiku-5.5`, or raise the key's credit limit for the day.
+
 ## Security notes
 
 - The site is static on GitHub Pages, which cannot send custom HTTP headers. Each page therefore carries a Content-Security-Policy in a `<meta>` tag (no inline code except hashed scripts, no third-party scripts, no framing via a small guard script). After editing any page's inline script, run `node scripts/harden.mjs` to refresh the hashes; `npm test` fails if they are stale. Turn on **Enforce HTTPS** in the repository's Pages settings. For real headers (HSTS, `frame-ancestors`), put 

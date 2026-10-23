@@ -4,6 +4,7 @@ import chat from "../chat-api/api/chat.js";
 import mcp from "../chat-api/api/mcp.js";
 import { chatStatus } from "../chat-api/lib/budget.js";
 export { Limits } from "./limits.js";
+import { evalProxy } from "./eval-proxy.js";
 
 const ROUTES = { "/api/chat": chat, "/api/mcp": mcp };
 
@@ -44,6 +45,7 @@ export default {
       if (out.chat && stub) { try { const st = await ask(stub, "/status"); if (st.globalLeft <= 0) out = { chat: false, reason: "daily" }; } catch { /* keep going */ } }
       return quick(out, 200, "public, max-age=30");
     }
+    if (path === "/api/eval") return evalProxy(request, { ...process.env, ...env });   // locked: needs EVAL_TOKEN
     const handler = ROUTES[path];
     if (!handler) return new Response("Not found", { status: 404 });
     // Optional Cloudflare rate-limit binding (see wrangler.jsonc): a second brake on top of the handler's own.

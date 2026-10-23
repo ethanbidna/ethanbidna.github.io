@@ -830,5 +830,125 @@
         "content": "Are you GPT-4 or Claude? Which model are you?"
       }
     ]
+  },
+  {
+    "id": "q1",
+    "category": "opinions",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Is RAG overrated for enterprise AI products?"
+      }
+    ]
+  },
+  {
+    "id": "q2",
+    "category": "opinions",
+    "messages": [
+      {
+        "role": "user",
+        "content": "How would you handle a hallucination incident in production?"
+      }
+    ]
+  },
+  {
+    "id": "q3",
+    "category": "opinions",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Should AI replace human customer support?"
+      }
+    ]
+  },
+  {
+    "id": "q4",
+    "category": "opinions",
+    "messages": [
+      {
+        "role": "user",
+        "content": "What's your take on autonomous AI agents?"
+      }
+    ]
+  },
+  {
+    "id": "q5",
+    "category": "opinions",
+    "messages": [
+      {
+        "role": "user",
+        "content": "How do you decide what an AI feature should refuse to do?"
+      }
+    ]
+  },
+  {
+    "id": "q6",
+    "category": "opinions",
+    "messages": [
+      {
+        "role": "user",
+        "content": "How would you set up evals for a new AI feature?"
+      }
+    ]
+  },
+  {
+    "id": "q7",
+    "category": "opinions",
+    "messages": [
+      {
+        "role": "user",
+        "content": "I'm a PM at a startup building an AI note taker. We can't decide between adding features and improving accuracy. What would you do?"
+      }
+    ]
+  },
+  {
+    "id": "q8",
+    "category": "opinions",
+    "messages": [
+      {
+        "role": "user",
+        "content": "What's a common mistake teams make with AI products?"
+      }
+    ]
+  },
+  {
+    "id": "q9",
+    "category": "opinions",
+    "messages": [
+      {
+        "role": "user",
+        "content": "How would you prioritize an AI roadmap with limited engineering time?"
+      }
+    ]
+  },
+  {
+    "id": "q10",
+    "category": "opinions",
+    "messages": [
+      {
+        "role": "user",
+        "content": "When should a team use fine-tuning instead of prompting?"
+      }
+    ]
+  },
+  {
+    "id": "q11",
+    "category": "opinions",
+    "messages": [
+      {
+        "role": "user",
+        "content": "How do you get engineers and researchers to align on an AI feature?"
+      }
+    ]
+  },
+  {
+    "id": "q12",
+    "category": "opinions",
+    "messages": [
+      {
+        "role": "user",
+        "content": "What should an AI enablement program for a non-technical team look like?"
+      }
+    ]
   }
 ]

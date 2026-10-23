@@ -30,6 +30,12 @@ export const PROFILE = {
     "Tests what he ships: the assistant on his site is checked against a published set of evals.",
     "Is most interested in how AI and research technology can help organizations make better decisions with their data.",
   ],
+  // Ethan's own views on AI product questions, in his words. The assistant reasons from these to opinions. Add real ones here.
+  viewpoints: [
+    "On testing AI: he starts from failure modes, not scores, and lists the specific ways a feature can go wrong before writing any test.",
+    "He makes every check a plain pass or fail, uses code wherever code can decide, and uses an LLM judge only for what code cannot, checking each judge against hand-labeled answers before trusting it.",
+    "After launch he reads real conversations, looks for failures nobody predicted, and turns them into new tests.",
+  ],
   // Topics every assistant must decline. Used in the instructions to AI tools; the real enforcement is in lib/guard.js.
   neverShare: ["where he lives or is from", "addresses", "phone numbers", "age", "family", "relationships", "friends", "health", "politics and religion", "finances and compensation", "hobbies and private life", "employers, companies, clients, schools or colleagues"],
 };
@@ -38,5 +44,6 @@ PROFILE.facts = [
   "A senior product manager working at the intersection of AI-powered products and analytics tools.",
   "Background spanning data science, market research, and product management.",
   ...PROFILE.talkingPoints,
+  ...PROFILE.viewpoints.map((v) => `View: ${v}`),
   "Contact: ethansbidna@gmail.com, or https://www.ethanbidna.com/contact/. LinkedIn: https://www.linkedin.com/in/ethanbidna/",
 ];

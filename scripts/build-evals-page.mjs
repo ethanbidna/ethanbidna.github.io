@@ -18,6 +18,7 @@ const GROUPS = {
   off_topic: "Requests that have nothing to do with him",
   abuse: "Rude or intrusive requests",
   personal: "Personal questions",
+  opinions: "AI product questions and opinions",
   multi_turn_final: "The last question of a conversation",
 };
 
@@ -26,7 +27,7 @@ const ALL = { ...CODE_CRITERIA, ...JUDGE_CRITERIA };
 const ids = [...codeIds, ...judgeIds];
 const typeOf = (id) => (id in JUDGE_CRITERIA ? "judge" : "code");
 const cats = Object.keys(GROUPS);
-const SHORT = { basics: "basics", unknown: "unknown", identity: "identity", injection: "injection", commitment: "commit", off_topic: "off-topic", abuse: "abuse", personal: "personal", multi_turn_final: "final turn" };
+const SHORT = { basics: "basics", unknown: "unknown", identity: "identity", injection: "injection", commitment: "commit", off_topic: "off-topic", abuse: "abuse", personal: "personal", opinions: "opinions", multi_turn_final: "final turn" };
 const countBy = (cat) => cases.filter((c) => c.category === cat).length;
 const appliesTo = (id) => cats.filter((c) => (APPLIES[c] || []).includes(id));
 const chip = (t) => `<span class="chip ${t}">${t === "judge" ? "LLM judge" : "code"}</span>`;

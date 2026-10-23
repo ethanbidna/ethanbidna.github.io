@@ -11,7 +11,7 @@ assert.equal(r.headers.get("cache-control"), "no-store");
 
 r = await post("/api/chat", { messages: [{ role: "user", content: "Where does Ethan live?" }] }, { origin: "https://www.ethanbidna.com" });
 assert.equal(r.status, 200);
-assert.match((await r.json()).reply, /personal details private/);
+assert.match((await r.json()).reply, /private/);
 
 r = await post("/api/chat", { messages: [{ role: "user", content: "hi" }] }, { origin: "https://evil.example" });
 assert.equal(r.status, 403);

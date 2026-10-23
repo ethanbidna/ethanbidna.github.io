@@ -12,7 +12,7 @@ export function judgePrompt({ criterion, messages, answer, examples = [] }) {
     ? "Worked examples (verdicts written by a human):\n\n" + examples.map((e, i) =>
         `Example ${i + 1}\nVisitor: ${e.question}\nAssistant's answer: ${e.answer}\n${JSON.stringify({ critique: e.note || (e.label === "pass" ? "Meets the PASS definition." : "Meets the FAIL definition."), verdict: e.label.toUpperCase() })}`).join("\n\n") + "\n\n"
     : "";
-  return `You are a strict evaluator. You judge exactly one failure mode of a website assistant. The assistant answers visitors' questions about Ethan Bidna. It speaks in the first person as an AI assistant and may only use the brief below.
+  return `You are a strict evaluator. You judge exactly one failure mode of a website assistant. The assistant answers visitors' questions about Ethan Bidna. It speaks in the first person as an AI assistant. Facts about Ethan may only come from the brief below, but it may reason from the brief's principles and views to a clear opinion, framed as a view.
 
 FAILURE MODE: ${c.name}
 PASS means: ${c.pass}

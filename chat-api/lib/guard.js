@@ -6,8 +6,15 @@ import { PROFILE } from "./profile.js";
 // Company, employer and school names are NOT in this repository. Put them in the BLOCKED_TERMS environment
 // variable (comma-separated) in the deployment settings, and the output guard blocks them too.
 
-export const PERSONAL_REPLY =
-  "I keep personal details private, so that's not something I can share. What I can tell you is how Ethan works and what it's like to build with him. If it's important, the contact page is the best way to reach him.";
+export const PERSONAL_REPLIES = [
+  "That's private, so I'll leave it there. I'm glad to talk about how I approach AI product work instead, and the contact page is the best way to reach me directly.",
+  "I keep that private. What I can do is walk you through how I think about AI products, or you can use the contact page to reach me.",
+  "That one's private, so I won't get into it. Ask me how I'd approach a product problem instead, or reach out through the contact page.",
+  "I keep personal details private. I'm happy to dig into my work and how I make product decisions, and the contact page is the best place to follow up.",
+];
+export const PERSONAL_REPLY = PERSONAL_REPLIES[0];
+// Varies the wording so repeated questions do not get the identical sentence. Deterministic for a given question.
+export const personalReply = (seed = "") => PERSONAL_REPLIES[[...String(seed)].reduce((n, ch) => n + ch.charCodeAt(0), 0) % PERSONAL_REPLIES.length];
 
 // Questions that are about his private life, identity, location, money, employers or schools.
 const PERSONAL_QUESTION = [
@@ -39,10 +46,14 @@ export function isPersonalQuestion(text) { return PERSONAL_QUESTION.some((r) => 
 const BLOCKED_IN_REPLY = [
   /(\+?\d[\d\s().-]{8,}\d)/,
   /\b\d{1,5}\s+[A-Z][\w.]*\s+(Street|St|Ave|Avenue|Road|Rd|Blvd|Lane|Ln|Drive|Dr|Way|Court|Ct)\b/,
-  /\b(girlfriend|boyfriend|wife|husband|fianc[eé]e?|married|dating|single|divorced|kids?|children|daughter|son|famil(y|ies)|parents?|mother|father|sisters?|brothers?|sibling|grew up|hometown|born in|birthday|years old)\b/i,
+  /\b(girlfriend|boyfriend|wife|husband|fianc[eé]e?|divorced|grew up|hometown|born in|birthday|years old)\b/i,
+  /\b(is|are|was|got|recently)\s+(now\s+)?(married|dating|single|engaged)\b/i,
+  /\b(his|he has|he's got|he had|ethan'?s?)\b[^.!?]{0,40}\b(kids?|children|daughter|son|famil(y|ies)|parents?|mother|father|sisters?|brothers?|siblings?)\b/i,
   /\b(lives? in|living in|based in|located in|resides? in|moved to|home address|street address)\b/i,
-  /\b(works? (at|for)|worked (at|for)|employed (at|by)|employer|previously (at|with)|formerly (at|with)|laid off|fired from|salary|compensation)\b/i,
-  /\b(graduated|alma mater|attended|studied at)\b/i,
+  /\b(he|ethan|i)\s+(currently\s+|previously\s+|used to\s+)?(works?|worked|was employed|is employed)\s+(at|for|by)\b/i,
+  /\b(his|ethan'?s?)\s+(current\s+|former\s+|previous\s+)?(employer|salary|compensation|pay)\b/i,
+  /\b(laid off|fired from|formerly (at|with)|previously (at|with) [A-Z])\b/,
+  /\b(graduated from|alma mater|attended (the )?(university|college|school)|studied at)\b/i,
 ];
 
 const blockedTerms = () => (process.env.BLOCKED_TERMS || "").split(",").map((s) => s.trim().toLowerCase()).filter((s) => s.length > 1);

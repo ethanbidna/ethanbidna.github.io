@@ -11,7 +11,7 @@ These tests check the assistant that answers questions on ethanbidna.com. The me
 ## Files
 | File | What it is |
 |---|---|
-| `cases.json` | 76 test conversations in 9 categories, including adversarial and multi-turn ones |
+| `cases.json` | 88 test conversations in 10 categories, including adversarial and multi-turn ones |
 | `criteria.mjs` | The failure modes, which categories each applies to, thresholds, and the version-0 failure taxonomy |
 | `checks.mjs` | The eleven code checks |
 | `judge.mjs` | The binary LLM judge: prompt, parsing, runner |

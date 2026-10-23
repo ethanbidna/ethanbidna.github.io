@@ -8,7 +8,7 @@
     "node": ">=20"
   },
   "scripts": {
-    "test": "node test/handler.test.mjs && node test/mcp.test.mjs && node test/evals.test.mjs && node test/openrouter.test.mjs && node test/site.test.mjs && node test/worker.test.mjs",
+    "test": "node test/handler.test.mjs && node test/mcp.test.mjs && node test/evals.test.mjs && node test/openrouter.test.mjs && node test/site.test.mjs && node test/worker.test.mjs && node test/budget.test.mjs",
     "evals:fixtures": "node evals/run.mjs --source=fixtures --judge=mock",
     "evals:live": "node evals/run.mjs --source=live --judge=live"
   },

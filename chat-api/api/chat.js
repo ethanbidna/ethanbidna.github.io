@@ -1,5 +1,6 @@
 import { answer, MAX_TURNS } from "../lib/answer.js";
 import { getClient } from "../lib/provider.js";
+import { isPaused, markExhausted } from "../lib/budget.js";
 
 const MAX_USER_CHARS = 300;
 const MAX_ASSISTANT_CHARS = 1200;
@@ -70,6 +71,7 @@ export default async function handler(req, res) {
   if (!messages) return res.status(400).json({ error: "bad_request" });
   const used = messages.filter((m) => m.role === "user").length;
 
+  if (isPaused()) return res.status(503).json({ error: "paused" });
   const client = getClient();
   if (!client) return res.status(503).json({ error: "unavailable" });
 
@@ -83,6 +85,7 @@ export default async function handler(req, res) {
   } catch (err) {
     // Includes the spend limit being reached. Never log message content.
     console.error("chat error", err && err.status, err && err.name);
+    if (err && err.status === 402) markExhausted();   // the key's credit limit is used up: pause the assistant for a while
     return res.status(503).json({ error: "unavailable" });
   }
 }

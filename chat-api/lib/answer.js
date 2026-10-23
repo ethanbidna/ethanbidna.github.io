@@ -17,7 +17,7 @@ export async function answer(messages, { client, model = chatModel() } = {}) {
   if (!c) throw new Error("No model provider is configured");
   const response = await c.messages.create({
     model,
-    max_tokens: 800,
+    max_tokens: 350,
     system: systemFor(used),
     output_config: { effort: "low" },
     messages,

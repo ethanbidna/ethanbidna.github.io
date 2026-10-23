@@ -13,6 +13,8 @@
     "run_worker_first": ["/api/*"]
   },
   "observability": { "enabled": false },
+  "durable_objects": { "bindings": [{ "name": "LIMITS", "class_name": "Limits" }] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Limits"] }],
   "ratelimits": [
     { "name": "LIMITER", "namespace_id": "1001", "simple": { "limit": 10, "period": 60 } }
   ]

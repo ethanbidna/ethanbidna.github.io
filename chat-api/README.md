@@ -38,6 +38,16 @@ A test suite for the assistant, built around failure modes, binary checks, and j
 - `node scripts/build-evals-page.mjs` (from the repo root) regenerates the public `/evals/` page from the suite itself. It lists only the checks and test conversations, no results.
 - `.github/workflows/evals.yml` runs the free tests on every change. A live run is a manual job that needs an `ANTHROPIC_API_KEY` repository secret.
 
+## Spend protection
+
+Layers, from the outside in:
+- **Key limit (the hard cap).** Create the OpenRouter key with a credit limit and a monthly reset. When it is used up, the assistant switches itself off site-wide: `/api/status` reports `chat: false`, the "Ask me anything" links disappear from every page, and `/ask/` shows an offline message. It checks the key again every minute, so it comes back on its own when the limit resets.
+- **Per visitor.** `worker/limits.js` is a Durable Object that counts use across all of Cloudflare, by hashed IP address: at most 5 messages per 10 minutes and 15 per day per visitor. Override with the variables `MAX_PER_IP_BURST` and `MAX_PER_IP_DAY`.
+- **Global daily cap.** At most 60 messages a day across everyone (`MAX_GLOBAL_DAY`). When it is reached the assistant is hidden until the next day.
+- **Per conversation.** Three questions, 300 characters each, replies capped at 350 tokens.
+- **Free questions cost nothing.** Personal questions are answered by a fixed reply without calling the model.
+- **Extra brake.** `wrangler.jsonc` also has a Cloudflare rate-limit binding of 10 requests a minute per IP.
+
 ## Security notes
 
 - The site is static on GitHub Pages, which cannot send custom HTTP headers. Each page therefore carries a Content-Security-Policy in a `<meta>` tag (no inline code except hashed scripts, no third-party scripts, no framing via a small guard script). After editing any page's inline script, run `node scripts/harden.mjs` to refresh the hashes; `npm test` fails if they are stale. Turn on **Enforce HTTPS** in the repository's Pages settings. For real headers (HSTS, `frame-ancestors`), put 

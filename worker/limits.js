@@ -12,7 +12,7 @@ export class Limits {
   constructor(state, env) { this.state = state; this.env = env || {}; }
   limits() {
     const n = (v, d) => (Number(v) > 0 ? Number(v) : d);
-    return { perIpDay: n(this.env.MAX_PER_IP_DAY, 15), perIpBurst: n(this.env.MAX_PER_IP_BURST, 5), globalDay: n(this.env.MAX_GLOBAL_DAY, 60) };
+    return { perIpDay: n(this.env.MAX_PER_IP_DAY, 30), perIpBurst: n(this.env.MAX_PER_IP_BURST, 8), globalDay: n(this.env.MAX_GLOBAL_DAY, 400) };
   }
   async load(now) {
     const day = new Date(now).toISOString().slice(0, 10);

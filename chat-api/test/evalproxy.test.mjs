@@ -4,7 +4,7 @@ import { createRemoteClient } from "../evals/remote-client.mjs";
 import { chatModel } from "../lib/provider.js";
 
 const TOKEN = "t".repeat(32);
-const model = chatModel();
+const model = "anthropic/claude-haiku-5.5";  // listed outright, whatever provider is detected
 const fake = { messages: { create: async (p) => ({ content: [{ type: "text", text: "echo:" + p.messages[0].content }], stop_reason: "end_turn", usage: { input_tokens: 3, output_tokens: 2, cost: 0.0001, seen: p } }) } };
 const req = (body, token = TOKEN, method = "POST") => new Request("https://www.ethanbidna.com/api/eval", { method, headers: { Authorization: `Bearer ${token}`, "content-type": "application/json" }, body: method === "GET" ? undefined : JSON.stringify(body) });
 const good = { model, max_tokens: 99999, system: "S", messages: [{ role: "user", content: "hi" }] };

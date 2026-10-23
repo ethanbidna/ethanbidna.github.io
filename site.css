@@ -244,3 +244,15 @@ body.chat-page .chat-app { flex: 1 1 0; }
 .c-grid { grid-template-rows: auto 1fr; }
 .c-more { align-self: start; margin-top: 32px; }
 @media (max-width: 900px) { .c-grid { grid-template-rows: none; } }
+
+.c-more { max-width: 34em; margin-top: 40px; }
+.mini-h { margin-bottom: 4px; }
+.rows { list-style: none; margin: 10px 0 0; padding: 0; border-top: 1.5px solid var(--ink); }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) 24px; align-items: center; gap: 12px; min-height: 78px; padding: 16px 12px 16px 4px; border-bottom: 1px solid var(--line); text-decoration: none; color: var(--ink); transition: background-color .15s, padding .15s; }
+.row .rt { display: flex; flex-direction: column; gap: 2px; }
+.row .rt b { font-size: clamp(21px, 2.8vw, 26px); letter-spacing: -.02em; line-height: 1.15; }
+.row .rt span { color: var(--muted); font-size: 16px; }
+.row .ico { color: var(--blue); transition: transform .15s; }
+.row:hover { background: var(--blue-soft); padding-left: 14px; color: var(--ink); }
+.row:hover .ico { transform: translateX(4px); }
+@media (prefers-reduced-motion: reduce) { .row, .row .ico { transition: none; } .row:hover { padding-left: 4px; } .row:hover .ico { transform: none; } }

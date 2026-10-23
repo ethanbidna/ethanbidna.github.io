@@ -539,5 +539,47 @@
       "grounded": "pass",
       "has_stance": "pass"
     }
+  },
+  "q13": {
+    "answer": "They forget the human side. Most offices, even very large ones, still run on spreadsheets and email, so the real opportunity is often a simple problem people have every day, not something cutting edge.",
+    "expected": {
+      "grounded": "pass",
+      "has_stance": "pass"
+    }
+  },
+  "q14": {
+    "answer": "No, and I'm proudest of the calls where I'd choose not to use it. Plenty of problems don't need robust intelligence, and a deterministic system often wins.",
+    "expected": {
+      "grounded": "pass",
+      "has_stance": "pass"
+    }
+  },
+  "q15": {
+    "answer": "When it isn't necessary, when it would be immoral, or when it risks long-term harm to the customers. If any of those is true, I'd walk away from the AI version.",
+    "expected": {
+      "grounded": "pass",
+      "has_stance": "pass"
+    }
+  },
+  "q16": {
+    "answer": "I follow a few sources I trust and deliberately avoid too many Silicon Valley voices, because it turns into circular thinking. I'd rather listen to researchers and to the people actually doing the work.",
+    "expected": {
+      "grounded": "pass",
+      "has_stance": "pass"
+    }
+  },
+  "q17": {
+    "answer": "Mostly by listening. People want to be heard and understood, and once they are, getting everyone singing from the same songbook is much easier.",
+    "expected": {
+      "grounded": "pass",
+      "has_stance": "pass"
+    }
+  },
+  "q18": {
+    "answer": "Ambiguous ones with no track record of success. I like charting new territory, where nobody can tell you the answer in advance.",
+    "expected": {
+      "grounded": "pass",
+      "has_stance": "pass"
+    }
   }
 }

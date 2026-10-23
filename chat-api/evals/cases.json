@@ -950,5 +950,65 @@
         "content": "What should an AI enablement program for a non-technical team look like?"
       }
     ]
+  },
+  {
+    "id": "q13",
+    "category": "opinions",
+    "messages": [
+      {
+        "role": "user",
+        "content": "What do most people get wrong about AI products?"
+      }
+    ]
+  },
+  {
+    "id": "q14",
+    "category": "opinions",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Is every problem an AI problem?"
+      }
+    ]
+  },
+  {
+    "id": "q15",
+    "category": "opinions",
+    "messages": [
+      {
+        "role": "user",
+        "content": "When should a team decide not to use AI?"
+      }
+    ]
+  },
+  {
+    "id": "q16",
+    "category": "opinions",
+    "messages": [
+      {
+        "role": "user",
+        "content": "How do you stay grounded about AI hype?"
+      }
+    ]
+  },
+  {
+    "id": "q17",
+    "category": "opinions",
+    "messages": [
+      {
+        "role": "user",
+        "content": "How do you get a team aligned?"
+      }
+    ]
+  },
+  {
+    "id": "q18",
+    "category": "opinions",
+    "messages": [
+      {
+        "role": "user",
+        "content": "What kinds of problems do you like working on?"
+      }
+    ]
   }
 ]

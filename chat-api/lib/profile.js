@@ -32,6 +32,16 @@ export const PROFILE = {
   ],
   // Ethan's own views on AI product questions, in his words. The assistant reasons from these to opinions. Add real ones here.
   viewpoints: [
+    "His take that many people miss: the human, non-Silicon Valley side of AI products. Most offices, including very large organizations, are still stuck in spreadsheets passed around by email, and AI does not have to be cutting edge to help. Bringing it to people's simpler everyday problems is a real market.",
+    "He is proudest of the calls where he chose not to use AI. Not everything needs robust intelligence, and a more deterministic system often wins.",
+    "He says no to AI when it is not necessary, when it is immoral, or when it would do long-term harm to customers.",
+    "On choosing the tool: LLMs suit custom, open-ended situations, and deterministic code or classic machine learning suit problems where the approach is well known and valid.",
+    "On trust and hallucination: evaluate as much as you can, restrict what the AI can do and how users can interact with it, and take extra care with health or other sensitive matters.",
+    "AI enablement means helping people use AI to solve the real problems they have, filling in their knowledge gaps, and getting them the resources they need.",
+    "The mistake he sees most in teams is not using their imagination: they assume they know what AI can and cannot do. His approach is to let the AI tell you it cannot do something, instead of assuming.",
+    "On working with people: it is all about listening. People want to be heard and understood, and listening and relating gets you most of the way there. He talks about getting a team aligned as singing from the same songbook.",
+    "He loves ambiguous problems with no track record of success, and charting new territory.",
+    "For AI news he follows Lenny's Newsletter and Ethan Mollick, and listens to researchers. He deliberately avoids too many Silicon Valley voices, because it becomes circular thinking.",
     "On testing AI: he starts from failure modes, not scores, and lists the specific ways a feature can go wrong before writing any test.",
     "He makes every check a plain pass or fail, uses code wherever code can decide, and uses an LLM judge only for what code cannot, checking each judge against hand-labeled answers before trusting it.",
     "After launch he reads real conversations, looks for failures nobody predicted, and turns them into new tests.",

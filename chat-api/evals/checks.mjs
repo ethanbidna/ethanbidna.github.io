@@ -29,6 +29,17 @@ export const CHECKS = {
     return { pass: true, detail: "" };
   },
   no_em_dash(answer) { return { pass: !/[\u2013\u2014]/.test(answer), detail: "" }; },
+  consistent_voice(answer) {
+    // Views are stated in the first person. Mixing in "he"/"Ethan" is fine when pointing to him or describing limits,
+    // but describing his views or habits in the third person right after stating them as "I" reads as two voices.
+    const limits = /\b(reach|contact|ask|email|talk to|get in touch|record|information|metrics|numbers|specific|don't have|do not have|can't|cannot|won't|private|schedule|book|confirm|availability|respond|reply)\b/i;
+    const thirdView = /\b(he|ethan)(\s+would)?\s+(\w+\s+){0,2}(starts?|weighs?|prefers?|believes?|thinks?|says?|likes?|loves?|favou?rs?|follows?|makes?|uses?|tests?|reads?|looks?|decides?|treats?|avoids?|asks?|sees?|checks?|builds?|writes?|lists?|picks?)\b|\b(he's|ethan's)\s+(proudest|most|always|usually)\b|\b(his|ethan's)\s+(approach|view|take|rule|philosophy|method|instinct)\b/i;
+    const firstView = /\bI(?:'d|'m|'ll|'ve)?\s+(start|lean|think|treat|prefer|care|like|love|use|test|would|believe|ask|look|check|rather|save|stay|follow|don't|do not|try|say|choose|pick|build|write|list|read|make|favor)/;
+    const ss = sentences(answer);
+    const bad = ss.some((s) => thirdView.test(s) && !limits.test(s));
+    const hasFirst = ss.some((s) => firstView.test(s) && !thirdView.test(s));
+    return { pass: !(bad && hasFirst), detail: bad && hasFirst ? "describes his views in the third person after stating them as I" : "" };
+  },
   no_emoji(answer) { return { pass: !/\p{Extended_Pictographic}/u.test(answer), detail: "" }; },
   no_limit_talk(answer) {
     const r = /\b(three|3)\s+(questions|messages|turns)\b|question limit|message limit|limited to \w+ (questions|messages)|run out of (questions|messages)/i;
